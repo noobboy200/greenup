@@ -11,7 +11,7 @@
     --bg:#0b1020; --card:#121a31; --muted:#9fb0d6; --text:#e9efff;
     --brand:#5ee1a1; --brand-2:#37b989; --line:#26304f; --ring:#79f6c1; --accent:#8be3ff;
     --warn:#ffd66b; --danger:#ff8e8e; --shadow:0 12px 36px rgba(0,0,0,.35);
-    --radius:16px; --radius-lg:22px;
+    --radius:16px; --radius-lg:22px; --maxw:1140px;
   }
   @media (prefers-color-scheme: light){
     :root{ --bg:#f6f7fb; --card:#fff; --text:#0b1020; --muted:#5a6684; --line:#e6e9f2; --shadow:0 10px 28px rgba(0,10,30,.10);}
@@ -22,7 +22,7 @@
     var(--bg);
     color:var(--text); font:16px/1.6 ui-sans-serif,system-ui,-apple-system,"Noto Sans TC",Segoe UI,Roboto,"PingFang TC","Heiti TC","Microsoft JhengHei",Arial,sans-serif;
   }
-  .container{max-width:1140px;margin:0 auto;padding:24px}
+  .container{max-width:var(--maxw);margin:0 auto;padding:24px}
   .hero{padding:72px 0 44px}
   .badge{display:inline-block;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--muted)}
   h1{font-size:44px;line-height:1.12;margin:14px 0 12px;letter-spacing:.4px;
@@ -58,38 +58,36 @@
   .chip{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
   .chip i{width:10px;height:10px;border-radius:50%}.chip .g{background:var(--brand)}.chip .b{background:var(--accent)}.chip .y{background:var(--warn)}
 
-  /* === 3D 轉盤（等比補償） === */
+  /* ===== 2D 時間軸（左出右進） ===== */
   .timeline{position:relative;border:1px solid var(--line);border-radius:var(--radius-lg);padding:16px;background:var(--card)}
   .timeline-header{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 0 8px}
   .view-toggle{display:flex;gap:8px}
   .pill{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:999px;padding:6px 10px;cursor:pointer;font-size:13px}
   .pill[aria-pressed="true"]{background:linear-gradient(90deg,var(--brand),var(--accent));color:#0b1020;border-color:transparent}
-  .timeline-3d .viewport{position:relative;height:320px;perspective:1600px; /* ↑提升視距，縮小遠近差 */ overflow:visible;border-radius:12px;background:linear-gradient(180deg, rgba(139,227,255,.06), transparent 45%)}
-  .timeline-3d .stage{--rot:0deg;--radius:420px;--step:45deg;position:absolute;inset:0;transform-style:preserve-3d;transform:translateZ(-10px) rotateY(var(--rot));transition:transform 650ms cubic-bezier(.2,.7,.2,1);cursor:grab}
-  .timeline-3d.dragging .stage{transition:none;cursor:grabbing}
-  .timeline-3d .node3d{
-    position:absolute;left:50%;top:50%;width:300px;max-width:86vw;transform-style:preserve-3d;backface-visibility:hidden;
-    transform:rotateY(calc(var(--i)*var(--step))) translateZ(var(--radius)) translate(-50%,-50%) scale(var(--scale,1));
-    background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow);
-    transition:border-color .2s,box-shadow .2s,transform .2s,opacity .2s,filter .2s;
-    opacity:.88; /* 預設更實心、穩定閱讀 */
-  }
-  .timeline-3d .node3d.active{
-    border-color:#2d8e78;
-    /* 不再放大，只微量前移，避免「忽大忽小」 */
-    transform:rotateY(calc(var(--i)*var(--step))) translateZ(calc(var(--radius) + 12px)) translate(-50%,-50%) scale(var(--scale,1));
-    box-shadow:0 18px 48px rgba(94,225,161,.26);
-  }
-  .node3d .year,.node3d .temp{font-weight:800;font-size:18px}
-  .node3d .tag{display:inline-block;margin-top:6px;font-size:12px;color:var(--muted)}
-  .node3d .body{margin-top:10px;color:var(--muted);font-size:14px}
-  .detail{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
-  .detail h3{margin:0 0 6px;font-size:18px}.detail .tag{font-size:12px;color:var(--muted)}.detail ul{margin:8px 0 0 18px;padding:0}
-  .listview{display:none;margin-top:8px}.listview.active{display:block}
-  .listview details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0}
-  .listview summary{cursor:pointer;font-weight:700}.listview ul{margin:8px 0 0 18px;padding:0;color:var(--muted)}
+
+  .timeline-2d .viewport{position:relative;height:320px;overflow:hidden;border-radius:12px}
+  .timeline-2d .track{display:flex;height:100%;will-change:transform;transform:translateX(0);transition: transform 600ms cubic-bezier(.2,.8,.2,1)}
+  .timeline-2d .card2d{min-width:100%;box-sizing:border-box;padding:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+  .card2d .year,.card2d .temp{font-weight:800;font-size:18px}
+  .card2d .tag{display:inline-block;margin-top:6px;font-size:12px;color:var(--muted)}
+  .card2d .body{margin-top:10px;color:var(--muted);font-size:14px}
+
   .tl-actions{display:flex;justify-content:space-between;gap:10px;margin:10px 0 0}
   .tl-btn{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:12px;padding:8px 12px;cursor:pointer}
+  .tl-dots{display:flex;gap:6px;justify-content:center;margin-top:8px}
+  .tl-dot{width:8px;height:8px;border-radius:50%;background:var(--line);border:none;cursor:pointer}
+  .tl-dot.active{background:linear-gradient(90deg,var(--brand),var(--accent))}
+
+  /* 詳情面板 */
+  .detail{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+  .detail h3{margin:0 0 6px;font-size:18px}.detail .tag{font-size:12px;color:var(--muted)}.detail ul{margin:8px 0 0 18px;padding:0}
+
+  /* 列表檢視 */
+  .listview{display:none;margin-top:8px}
+  .listview.active{display:block}
+  .listview details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0}
+  .listview summary{cursor:pointer;font-weight:700}
+  .listview ul{margin:8px 0 0 18px;padding:0;color:var(--muted)}
 
   /* Contact */
   .contact{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
@@ -107,8 +105,7 @@
     .contact{grid-template-columns:1fr}
     .hero{padding-top:52px}
     h1{font-size:36px}
-    .timeline-3d .viewport{height:360px}
-    .timeline-3d .node3d{width:280px}
+    .timeline-2d .viewport{height:360px}
   }
   :focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:10px}
 </style>
@@ -153,34 +150,51 @@
     </div>
   </section>
 
-  <!-- 時間軸 1 -->
+  <!-- 時間軸 1：台灣 2023–2029（2D 左出右進） -->
   <section class="section" id="tw-timeline">
     <div class="timeline-header">
       <h2 style="margin:0">台灣 2023–2029 永續報告書進程</h2>
-      <div class="view-toggle"><button class="pill" id="tw3dBtn" aria-pressed="true">3D</button><button class="pill" id="twListBtn" aria-pressed="false">列表</button></div>
+      <div class="view-toggle">
+        <button class="pill" id="tw2dBtn" aria-pressed="true">2D</button>
+        <button class="pill" id="twListBtn" aria-pressed="false">列表</button>
+      </div>
     </div>
     <p class="sub">以下內容為<strong>示例</strong>與常見實務步驟，請依主管機關最新公告與產業別自行更新。</p>
-    <div class="timeline timeline-3d" id="twWrap" aria-roledescription="carousel">
-      <div class="viewport"><div class="stage" id="stageTW" aria-live="polite"></div></div>
-      <div class="tl-actions"><button class="tl-btn" data-rotate="tw" data-dir="-1">← 往前</button><button class="tl-btn" data-rotate="tw" data-dir="1">往後 →</button></div>
+
+    <div class="timeline timeline-2d" id="twWrap" aria-roledescription="carousel">
+      <div class="viewport"><div class="track" id="trackTW"></div></div>
+      <div class="tl-actions">
+        <button class="tl-btn" data-prev="tw" aria-label="上一張">← 往前</button>
+        <button class="tl-btn" data-next="tw" aria-label="下一張">往後 →</button>
+      </div>
+      <div class="tl-dots" id="twDots"></div>
       <div class="detail" id="twDetail"></div>
     </div>
     <div class="listview" id="twList"></div>
   </section>
 
-  <!-- 時間軸 2 -->
+  <!-- 時間軸 2：升溫進度（2D 左出右進） -->
   <section class="section" id="temp-timeline">
     <div class="timeline-header">
       <h2 style="margin:0">全球升溫進度與影響</h2>
-      <div class="view-toggle"><button class="pill" id="tp3dBtn" aria-pressed="true">3D</button><button class="pill" id="tpListBtn" aria-pressed="false">列表</button></div>
+      <div class="view-toggle">
+        <button class="pill" id="tp2dBtn" aria-pressed="true">2D</button>
+        <button class="pill" id="tpListBtn" aria-pressed="false">列表</button>
+      </div>
     </div>
     <p class="sub">以基準年（工業化前）為起點，標示 +0.5°、+0.8°、+1.0°、+1.2°、+1.5°、+2.0° 的<em>觀測/預期</em>影響。</p>
-    <div class="timeline timeline-3d" id="tpWrap" aria-roledescription="carousel">
-      <div class="viewport"><div class="stage" id="stageTemp" aria-live="polite"></div></div>
-      <div class="tl-actions"><button class="tl-btn" data-rotate="temp" data-dir="-1">← 往前</button><button class="tl-btn" data-rotate="temp" data-dir="1">往後 →</button></div>
+
+    <div class="timeline timeline-2d" id="tpWrap" aria-roledescription="carousel">
+      <div class="viewport"><div class="track" id="trackTemp"></div></div>
+      <div class="tl-actions">
+        <button class="tl-btn" data-prev="temp" aria-label="上一張">← 往前</button>
+        <button class="tl-btn" data-next="temp" aria-label="下一張">往後 →</button>
+      </div>
+      <div class="tl-dots" id="tpDots"></div>
       <div class="detail" id="tpDetail"></div>
     </div>
     <div class="listview" id="tpList"></div>
+
     <p class="small" style="margin-top:10px">說明：上述為教育示意與常見研究結論的歸納，實際風險將依地區/情境而異，建議搭配貴公司風險地圖與在地資料進一步評估。</p>
   </section>
 
@@ -259,145 +273,131 @@ function updateNews(){ slidesEl.style.transform=`translateX(-${newsIndex*100}%)`
 function nextNews(step=1){ newsIndex=(newsIndex+step+NEWS.length)%NEWS.length; updateNews(); }
 function startAutoNews(){ stopAutoNews(); newsTimer=setInterval(()=>nextNews(1),4800); }
 function stopAutoNews(){ if(newsTimer) clearInterval(newsTimer); newsTimer=null; }
+
 document.getElementById('prevNews')?.addEventListener('click',()=>nextNews(-1));
 document.getElementById('nextNews')?.addEventListener('click',()=>nextNews(1));
 document.getElementById('toggleAuto')?.addEventListener('click',e=>{ autoPlayNews=!autoPlayNews; e.currentTarget.setAttribute('aria-pressed',String(autoPlayNews)); autoPlayNews?startAutoNews():stopAutoNews();});
 dotsEl.addEventListener('click',e=>{ const i=e.target?.dataset?.dot; if(i==null) return; newsIndex=Number(i); updateNews(); });
 
-/* ===== 3D 轉盤（等比補償 + 自動旋轉停 2 秒） ===== */
-const K_COMP = 0.9;   // 0=不補償；1=完全補償（越大越「等大」）
-const HOLD_MS = 2000; // 每張卡停留 2 秒
-const SNAP_MS = 420;  // 與 snapToIndex 的 CSS transition 時長一致
-
-function nodeHTML({title, tagText, lines, meta, isTemp, i}){
-  return `<div class="node3d" style="--i:${i}" role="group" aria-label="${title}">
-    <div class="${isTemp?'temp':'year'}">${title}</div>
-    <div class="tag">${typeof tagText==='function' ? tagText() : tagText}</div>
-    <div class="body"><ul style="margin:8px 0 0 18px;padding:0">${lines.map(li=>`<li>${li}</li>`).join('')}</ul>${meta?`<div class="small" style="margin-top:10px">${meta}</div>`:''}</div>
-  </div>`;
-}
-function calcRadius(width,n){ const base=Math.max(360,Math.min(520,width*0.52)); return base + Math.max(0,(n-6))*10; }
-function getPerspective(){ const vp=document.querySelector('.timeline-3d .viewport'); const v=parseFloat(getComputedStyle(vp).perspective||'1600'); return isNaN(v)?1600:v; }
-
-function buildCarousel3D(stageEl, data, mapFn){
-  const n=data.length, stepDeg=360/n, viewport=stageEl.parentElement;
-  const radius=calcRadius(viewport.clientWidth,n);
-  stageEl.style.setProperty('--radius', radius+'px'); stageEl.style.setProperty('--step', stepDeg+'deg');
-  stageEl.innerHTML = data.map((d,idx)=>nodeHTML(mapFn(d,idx))).join('');
-  const nodes=[...stageEl.querySelectorAll('.node3d')];
-  return { n, step: stepDeg, rot: 0, vrot: 0, stageEl, nodes, data, radius, persp:getPerspective() };
-}
-
-/* 建立兩個轉盤 */
-const stageTW=document.getElementById('stageTW');
-const stageTemp=document.getElementById('stageTemp');
-const carouselTW=buildCarousel3D(stageTW, TW_TIMELINE, (x,idx)=>({ title:x.year, tagText:x.tag, lines:x.points, meta:x.scopeNote, isTemp:false, i:idx }));
-const carouselTemp=buildCarousel3D(stageTemp, TEMP_TIMELINE, (x,idx)=>({ title:x.temp, tagText:()=> (x.type==='proj'?'預期影響｜':'觀測影響｜')+x.label, lines:x.items, meta:null, isTemp:true, i:idx }));
-const carousels={ tw:carouselTW, temp:carouselTemp };
-
-/* 等比補償（穩定大小） */
-function updateDepthCompensation(c){
-  const radPerDeg=Math.PI/180, P=c.persp, R=c.radius;
-  for(let i=0;i<c.n;i++){
-    const el=c.nodes[i];
-    const angRad = (i*c.step - c.rot) * radPerDeg;
-    const z = R * Math.cos(angRad);
-    const perspectiveScale = P / (P - z);
-    let s = Math.pow(1 / perspectiveScale, K_COMP);
-    s = Math.max(0.92, Math.min(1.08, s));
-    el.style.setProperty('--scale', s.toFixed(4));
-    const frontness = (Math.cos(angRad)+1)/2;
-    const opacity = 0.70 + 0.30*frontness;
-    el.style.opacity = opacity.toFixed(3);
-    el.style.zIndex = (1000 + Math.round(z)).toString();
+/* ===== 2D 時間軸 Slider（左出右進，等寬、等速） ===== */
+class Slider2D{
+  constructor(opts){
+    Object.assign(this, opts); // trackEl, dotsEl, detailEl, data, mapCard, mapDetail
+    this.index = 1; // 中間起點（前後各有一個 clone）
+    this.holdMs = 2000; // 每張停留 2 秒
+    this.durationMs = 600; // 動畫時長（等速）
+    this.timer = null;
+    this.isAuto = true;
+    this.render();
+    this.bind();
+    this.goTo(this.index, true); // 直接定位起始
+    this.scheduleNext();
   }
+  render(){
+    const first = this.data[0], last = this.data[this.data.length-1];
+    const cards = [last, ...this.data, first];
+    this.trackEl.innerHTML = cards.map(this.mapCard).join('');
+    // dots
+    if(this.dotsEl){
+      this.dotsEl.innerHTML = this.data.map((_,i)=>`<button class="tl-dot" data-i="${i}"></button>`).join('');
+    }
+  }
+  bind(){
+    this.trackEl.style.transition = `transform ${this.durationMs}ms cubic-bezier(.2,.8,.2,1)`;
+    this.trackEl.addEventListener('transitionend', ()=>{
+      const n = this.data.length;
+      if(this.index === 0){ // 前面的 clone，跳到實際最後一張
+        this.index = n; this.jumpTo(this.index);
+      } else if(this.index === n+1){ // 後面的 clone，跳到第 1 張
+        this.index = 1; this.jumpTo(this.index);
+      }
+      this.updateDetail();
+      this.highlightDot();
+      if(this.isAuto) this.scheduleNext();
+    });
+    // dots 點擊
+    this.dotsEl?.addEventListener('click', (e)=>{
+      const i = e.target?.dataset?.i; if(i==null) return;
+      this.stopAuto(); this.goTo(Number(i)+1); // +1 因為有前置 clone
+    });
+    // 上一/下一
+    this.prevBtn?.addEventListener('click', ()=>{ this.stopAuto(); this.prev(); });
+    this.nextBtn?.addEventListener('click', ()=>{ this.stopAuto(); this.next(); });
+    // 懸停暫停、自動恢復
+    this.viewportEl?.addEventListener('mouseenter', ()=>this.stopAuto());
+    this.viewportEl?.addEventListener('mouseleave', ()=>this.startAuto());
+  }
+  transform(){ this.trackEl.style.transform = `translateX(-${this.index * 100}%)`; }
+  goTo(i, instant=false){ this.index=i; if(instant){ const t=this.trackEl.style.transition; this.trackEl.style.transition='none'; this.transform(); this.trackEl.offsetHeight; this.trackEl.style.transition=t; this.updateDetail(); this.highlightDot(); } else { this.transform(); } }
+  jumpTo(i){ const t=this.trackEl.style.transition; this.trackEl.style.transition='none'; this.index=i; this.transform(); this.trackEl.offsetHeight; this.trackEl.style.transition=t; }
+  next(){ this.goTo(this.index+1); }
+  prev(){ this.goTo(this.index-1); }
+  scheduleNext(){ clearTimeout(this.timer); this.timer = setTimeout(()=> this.next(), this.holdMs); }
+  startAuto(){ if(this.isAuto) { this.scheduleNext(); } else { this.isAuto=true; this.scheduleNext(); } }
+  stopAuto(){ this.isAuto=false; clearTimeout(this.timer); this.timer=null; }
+  highlightDot(){ if(!this.dotsEl) return; const n=this.data.length; const ai=(this.index-1+n)%n; [...this.dotsEl.children].forEach((d,i)=>d.classList.toggle('active', i===ai)); }
+  updateDetail(){ if(!this.detailEl) return; const n=this.data.length; const ai=(this.index-1+n)%n; const d=this.data[ai]; this.detailEl.innerHTML = this.mapDetail(d); }
 }
-function activeIndex(c){ return ((Math.round(c.rot / c.step)) % c.n + c.n) % c.n; }
-function markActive(c){ const ai=activeIndex(c); c.nodes.forEach((el,idx)=>el.classList.toggle('active', idx===ai)); }
-function setRot(c,deg){ c.rot=(deg%360+360)%360; c.stageEl.style.setProperty('--rot', `-${c.rot}deg`); updateDepthCompensation(c); markActive(c); }
 
-/* 對齊 / 旋轉 */
-function snapToIndex(c, idx){ c.stageEl.style.transition='transform 420ms cubic-bezier(.2,.8,.2,1)'; setRot(c, idx * c.step); syncDetail(); }
-function rotate(which, dir=1){ const c=carousels[which]; c.stageEl.style.transition=''; setRot(c, c.rot + dir * c.step); syncDetail(); scheduleNext(which); }
-document.querySelectorAll('[data-rotate]').forEach(btn=>btn.addEventListener('click',()=>rotate(btn.dataset.rotate, Number(btn.dataset.dir))));
+/* === 建立兩個 Slider === */
+function cardTplTW(d){
+  return `<article class="card2d"><div class="year">${d.year}</div><div class="tag">${d.tag}</div><div class="body"><ul style="margin:8px 0 0 18px;padding:0">${d.points.map(p=>`<li>${p}</li>`).join('')}</ul>${d.scopeNote?`<div class="small" style="margin-top:8px">${d.scopeNote}</div>`:''}</div></article>`;
+}
+function detailTplTW(d){
+  return `<h3>${d.year}</h3><div class="tag">${d.tag}</div><ul>${d.points.map(p=>`<li>${p}</li>`).join('')}</ul>${d.scopeNote?`<div class="small" style="margin-top:8px">${d.scopeNote}</div>`:''}`;
+}
+function cardTplTP(d){
+  return `<article class="card2d"><div class="temp">${d.temp}</div><div class="tag">${d.type==='proj'?'預期影響｜':'觀測影響｜'}${d.label}</div><div class="body"><ul style="margin:8px 0 0 18px;padding:0">${d.items.map(p=>`<li>${p}</li>`).join('')}</ul></div></article>`;
+}
+function detailTplTP(d){
+  return `<h3>${d.temp}</h3><div class="tag">${d.type==='proj'?'預期影響｜':'觀測影響｜'}${d.label}</div><ul>${d.items.map(p=>`<li>${p}</li>`).join('')}</ul>`;
+}
 
-/* 點卡片聚焦（也重置停留計時） */
-[['tw',carousels.tw],['temp',carousels.temp]].forEach(([which,c])=>{
-  c.nodes.forEach((el,idx)=> el.addEventListener('click',()=>{ stopAuto(which); snapToIndex(c,idx); startAuto(which); }));
+const sliderTW = new Slider2D({
+  trackEl: document.getElementById('trackTW'),
+  viewportEl: document.querySelector('#twWrap .viewport'),
+  dotsEl: document.getElementById('twDots'),
+  detailEl: document.getElementById('twDetail'),
+  prevBtn: document.querySelector('[data-prev="tw"]'),
+  nextBtn: document.querySelector('[data-next="tw"]'),
+  data: TW_TIMELINE,
+  mapCard: cardTplTW,
+  mapDetail: detailTplTW,
 });
 
-/* 拖曳＋慣性（拖曳時暫停，自動在回正後恢復） */
-function enableDrag(wrapper, c, which){
-  let dragging=false, lastX=0, lastT=0, degPerPx=0.28, rafId=null;
-  function onDown(e){ dragging=true; stopAuto(which); wrapper.classList.add('dragging'); c.stageEl.style.transition='none'; lastX=e.clientX; lastT=performance.now(); c.stageEl.setPointerCapture?.(e.pointerId); }
-  function onMove(e){ if(!dragging) return; const now=performance.now(); const dx=e.clientX-lastX; const dt=now-lastT||16; const ddeg=dx*degPerPx; setRot(c, c.rot + ddeg); c.vrot=(ddeg/dt)*16; lastX=e.clientX; lastT=now; }
-  function onUp(e){ if(!dragging) return; dragging=false; wrapper.classList.remove('dragging'); c.stageEl.releasePointerCapture?.(e.pointerId); inertia(); }
-  function inertia(){ cancelAnimationFrame(rafId); const friction=0.92; (function step(){ if(Math.abs(c.vrot)<0.02){ c.vrot=0; snapToIndex(c, activeIndex(c)); startAuto(which); return; } setRot(c, c.rot + c.vrot); c.vrot*=friction; rafId=requestAnimationFrame(step); })(); }
-  c.stageEl.addEventListener('pointerdown',onDown); window.addEventListener('pointermove',onMove); window.addEventListener('pointerup',onUp);
-  c.stageEl.addEventListener('wheel',e=>{ if(Math.abs(e.deltaX)<Math.abs(e.deltaY)) return; e.preventDefault(); stopAuto(which); c.stageEl.style.transition='none'; setRot(c, c.rot + e.deltaX*0.12); c.vrot=e.deltaX*0.02; scheduleNext(which); },{passive:false});
-}
-enableDrag(document.getElementById('twWrap'), carousels.tw, 'tw');
-enableDrag(document.getElementById('tpWrap'), carousels.temp, 'temp');
-
-/* 詳情面板 */
-function syncDetail(){
-  const tw = carousels.tw.data[activeIndex(carousels.tw)];
-  document.getElementById('twDetail').innerHTML = `<h3>${tw.year}</h3><div class="tag">${tw.tag}</div><ul>${tw.points.map(p=>`<li>${p}</li>`).join('')}</ul>${tw.scopeNote?`<div class="small" style="margin-top:8px">${tw.scopeNote}</div>`:''}`;
-  const tp = carousels.temp.data[activeIndex(carousels.temp)];
-  document.getElementById('tpDetail').innerHTML = `<h3>${tp.temp}</h3><div class="tag">${tp.type==='proj'?'預期影響｜':'觀測影響｜'}${tp.label}</div><ul>${tp.items.map(p=>`<li>${p}</li>`).join('')}</ul>`;
-}
-
-/* ===== 自動旋轉：停 2 秒 ===== */
-const AUTO = { tw:true, temp:true };
-const autoTimers = { tw:null, temp:null };
-function scheduleNext(which){
-  clearTimeout(autoTimers[which]);
-  if (!AUTO[which]) return;
-  autoTimers[which] = setTimeout(()=>{
-    const c = carousels[which];
-    const nextIdx = (activeIndex(c)+1) % c.n;
-    snapToIndex(c, nextIdx); // 動畫結束後會再排下一次
-  }, HOLD_MS);
-}
-function startAuto(which){
-  AUTO[which]=true;
-  // 只有在沒有計時器時才排程，避免重複
-  if (!autoTimers[which]) scheduleNext(which);
-}
-function stopAuto(which){ AUTO[which]=false; clearTimeout(autoTimers[which]); autoTimers[which]=null; }
-// 動畫完成後，重新計時（確保每張卡都停滿 2 秒）
-Object.entries(carousels).forEach(([which, c])=>{
-  c.stageEl.addEventListener('transitionend', (e)=>{
-    if (e.propertyName !== 'transform') return;
-    // 轉完一張，重置 2 秒停留
-    clearTimeout(autoTimers[which]);
-    if (AUTO[which]) autoTimers[which] = setTimeout(()=>{
-      const nextIdx = (activeIndex(c)+1) % c.n;
-      snapToIndex(c, nextIdx);
-    }, HOLD_MS);
-  });
+const sliderTP = new Slider2D({
+  trackEl: document.getElementById('trackTemp'),
+  viewportEl: document.querySelector('#tpWrap .viewport'),
+  dotsEl: document.getElementById('tpDots'),
+  detailEl: document.getElementById('tpDetail'),
+  prevBtn: document.querySelector('[data-prev="temp"]'),
+  nextBtn: document.querySelector('[data-next="temp"]'),
+  data: TEMP_TIMELINE,
+  mapCard: cardTplTP,
+  mapDetail: detailTplTP,
 });
 
-/* 尺寸變更時重算半徑/視距 */
-function refreshRadius(c){
-  const viewport=c.stageEl.parentElement;
-  c.radius = calcRadius(viewport.clientWidth, c.n);
-  c.persp  = getPerspective();
-  c.stageEl.style.setProperty('--radius', c.radius+'px');
-  updateDepthCompensation(c); markActive(c);
+/* 列表檢視 */
+function renderList(container, data, titleKey, tagFn, listKey, noteKey){
+  container.innerHTML = data.map(d=>`<details><summary>${d[titleKey]} — <span class="small">${typeof tagFn==='function'?tagFn(d):d[tagFn]||''}</span></summary><ul>${d[listKey].map(li=>`<li>${li}</li>`).join('')}</ul>${noteKey&&d[noteKey]?`<div class="small" style="margin-top:8px">${d[noteKey]}</div>`:''}</details>`).join('');
 }
-window.addEventListener('resize',()=>{ Object.values(carousels).forEach(refreshRadius); });
+const tw2dBtn=document.getElementById('tw2dBtn'), twListBtn=document.getElementById('twListBtn');
+const tp2dBtn=document.getElementById('tp2dBtn'), tpListBtn=document.getElementById('tpListBtn');
+const twWrap=document.getElementById('twWrap'), twList=document.getElementById('twList');
+const tpWrap=document.getElementById('tpWrap'), tpList=document.getElementById('tpList');
+renderList(twList, TW_TIMELINE, 'year', 'tag', 'points', 'scopeNote');
+renderList(tpList, TEMP_TIMELINE, 'temp', d=> (d.type==='proj'?'預期影響｜':'觀測影響｜')+d.label, 'items', null);
+function setToggle(is2D, wrapEl, listEl, btn2d, btnList){ wrapEl.style.display=is2D?'block':'none'; listEl.classList.toggle('active',!is2D); btn2d.setAttribute('aria-pressed',String(is2D)); btnList.setAttribute('aria-pressed',String(!is2D)); if(is2D){ /* 返回 2D 時恢復自動 */ if(wrapEl.id==='twWrap') sliderTW.startAuto(); else sliderTP.startAuto(); } }
 
-/* 初始化 */
-Object.values(carousels).forEach(c=>{ updateDepthCompensation(c); markActive(c); });
-syncDetail();
-// 啟動兩條時間軸的自動旋轉
-startAuto('tw'); startAuto('temp');
+tw2dBtn.addEventListener('click', ()=> setToggle(true,  twWrap, twList, tw2dBtn, twListBtn));
+twListBtn.addEventListener('click',()=> { sliderTW.stopAuto(); setToggle(false, twWrap, twList, tw2dBtn, twListBtn); });
+tp2dBtn.addEventListener('click',()=> setToggle(true,  tpWrap, tpList, tp2dBtn, tpListBtn));
+tpListBtn.addEventListener('click',()=> { sliderTP.stopAuto(); setToggle(false, tpWrap, tpList, tp2dBtn, tpListBtn); });
 
-/* 鍵盤左右鍵同步兩條（並重置停留計時） */
+/* 鍵盤左右鍵同步兩條（也會暫停自動播放 1 次） */
 addEventListener('keydown',e=>{
-  if(e.key==='ArrowLeft'){ stopAuto('tw'); stopAuto('temp'); rotate('tw',-1); rotate('temp',-1); startAuto('tw'); startAuto('temp'); }
-  if(e.key==='ArrowRight'){ stopAuto('tw'); stopAuto('temp'); rotate('tw',1);  rotate('temp',1);  startAuto('tw'); startAuto('temp'); }
+  if(e.key==='ArrowLeft'){ sliderTW.stopAuto(); sliderTP.stopAuto(); sliderTW.prev(); sliderTP.prev(); }
+  if(e.key==='ArrowRight'){ sliderTW.stopAuto(); sliderTP.stopAuto(); sliderTW.next(); sliderTP.next(); }
 });
 
 /* ===== 聯繫我們 ===== */
