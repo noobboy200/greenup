@@ -5,100 +5,122 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>綠色影響力｜Green Impact</title>
 <meta name="description" content="綠色影響力：專業教育訓練、整合性ESG解決方案、綠領人才培訓與媒合。" />
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="light dark" />
 <style>
+  /* ===================== 新風格（溫潤紙感／森綠 × 琥珀） ===================== */
   :root{
-    --bg:#0b1020; --card:#0f1730; --muted:#a7b6de; --text:#e9efff;
-    --brand:#5fe0b0; --brand-2:#28b88a; --line:#26304f; --ring:#79f6c1; --accent:#8bd7ff;
-    --warn:#ffd66b; --danger:#ff8e8e; --shadow:0 14px 36px rgba(2,12,36,.35);
-    --radius:16px; --radius-lg:22px; --maxw:1140px; --chip:#0e2346; --chip-brd:#29406f;
-    --grad: radial-gradient(1200px 600px at 5% -10%, rgba(94,225,161,.10), transparent 60%),
-            radial-gradient(900px 420px at 110% 0%, rgba(139,227,255,.08), transparent 60%),
-            linear-gradient(180deg, rgba(255,255,255,.02), transparent 30%), var(--bg);
+    --bg:#faf7f0;        /* 背景：象牙白 */
+    --card:#ffffff;      /* 區塊：純白 */
+    --text:#1f2937;      /* 正文：石墨灰 */
+    --muted:#55626f;     /* 次文字：藍灰 */
+    --line:#e7e1d6;      /* 線條：奶茶米 */
+    --brand:#2e7d32;     /* 主色：森綠 */
+    --brand-2:#6baa75;   /* 補色：鼠尾草綠 */
+    --accent:#d97706;    /* 點綴：琥珀橙 */
+    --chip:#f2efe7;      /* 晶片：淡米色 */
+    --chip-brd:#e6decc;
+    --shadow:0 10px 26px rgba(31,41,55,.10);
+    --radius:14px; --radius-lg:20px; --maxw:1140px;
 
-    /* 統一時間軸速度 */
-    --tl-hold: 3400ms;   /* 每張停留 */
-    --tl-dur:  800ms;    /* 轉場動畫 */
+    /* 時間軸統一節奏（兩條一致） */
+    --tl-hold: 3600ms;   /* 每張停留（更慢） */
+    --tl-dur:   820ms;   /* 轉場動畫 */
   }
-  @media (prefers-color-scheme: light){
-    :root{ --bg:#f6f7fb; --card:#fff; --text:#0b1020; --muted:#5a6684; --line:#e6e9f2; --chip:#f3f6ff; --chip-brd:#d8e1fb; --shadow:0 12px 28px rgba(0,10,30,.10);}
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0e1113; --card:#15191c; --text:#e8edf2; --muted:#aab6c4; --line:#25303a;
+      --chip:#12181b; --chip-brd:#293540; --shadow:0 12px 30px rgba(0,0,0,.35);
+      --brand:#7ddc94; --brand-2:#4ab37a; --accent:#ffb454;
+    }
   }
-  html,body{margin:0;padding:0;background:var(--grad);color:var(--text);
-    font:16px/1.6 ui-sans-serif,system-ui,-apple-system,"Noto Sans TC",Segoe UI,Roboto,"PingFang TC","Heiti TC","Microsoft JhengHei",Arial,sans-serif;}
-  .container{max-width:var(--maxw);margin:0 auto;padding:24px}
-  .hero{padding:68px 0 42px}
-  .badge{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--muted);background:linear-gradient(180deg,rgba(255,255,255,.03),transparent)}
-  h1{font-size:44px;line-height:1.12;margin:14px 0 12px;letter-spacing:.4px;
-    background:linear-gradient(90deg,#cfe9ff,#5ee1a1 60%,#8be3ff); -webkit-background-clip:text; background-clip:text; color:transparent;}
+
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font:16px/1.65 ui-sans-serif,system-ui,-apple-system,"Noto Sans TC",Segoe UI,Roboto,"PingFang TC","Microsoft JhengHei",Arial,sans-serif;
+    scroll-behavior:smooth}
+  /* 讓錨點不被頂部導覽擋住 */
+  section{scroll-margin-top:84px}
+
+  .container{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  .hero{padding:80px 0 42px}
+  .badge{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--muted);background:var(--chip)}
+  h1{font-size:42px;line-height:1.15;margin:16px 0 12px;letter-spacing:.2px}
   .lead{max-width:820px;color:var(--muted);font-size:18px}
   .cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
   .btn{appearance:none;border:none;border-radius:999px;padding:12px 18px;font-weight:700;cursor:pointer;box-shadow:var(--shadow);transition:.25s transform,.25s box-shadow,.25s background,.25s border-color}
-  .btn-primary{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#0b1020}
-  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 16px 40px rgba(55,185,137,.38)}
+  .btn-primary{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 16px 40px rgba(46,125,50,.22)}
   .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
-  .btn-ghost:hover{background:rgba(255,255,255,.04)}
+  .btn-ghost:hover{background:#fff1}
+
   .section{margin:56px 0}
   .section h2{font-size:28px;margin:0 0 8px}
   .section p.sub{margin:0 0 18px;color:var(--muted)}
 
-  /* 公告 */
+  /* ===================== 頂部「快速導覽」條 ===================== */
+  .quicknav-wrap{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);background:rgba(255,255,255,.72)}
+  @media (prefers-color-scheme: dark){ .quicknav-wrap{background:rgba(21,25,28,.72)} }
+  .quicknav{display:flex;gap:14px;align-items:center;min-height:44px}
+  .quicknav a{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;
+    color:var(--text);text-decoration:none;background:var(--chip)}
+  .quicknav a:hover{border-color:var(--brand);box-shadow:0 0 0 2px color-mix(in oklab,var(--brand),transparent 80%) inset}
+  .quicknav .sep{opacity:.35}
+
+  /* ===================== 最新公告 ===================== */
   .announce{display:grid;grid-template-columns:1fr;gap:12px}
   .ticker{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:var(--card)}
   .slides{display:flex;transition:transform .6s ease}
-  .slide{min-width:100%;padding:16px;background:var(--card)}
+  .slide{min-width:100%;padding:16px 18px}
   .slide strong{color:var(--brand)}
   .ticker-controls{display:flex;justify-content:space-between;gap:10px;padding:8px}
   .dot{width:8px;height:8px;border-radius:50%;background:var(--line);cursor:pointer;border:none}
   .dot.active{background:linear-gradient(90deg,var(--brand),var(--accent))}
   .ctrl{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:10px;padding:6px 10px;cursor:pointer}
 
-  /* 服務卡（含 icons） */
+  /* ===================== 三大服務 ===================== */
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
   .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 16px 18px;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s,border-color .25s}
-  .card:hover{transform:translateY(-4px);border-color:#2d8e78;box-shadow:0 18px 48px rgba(94,225,161,.25)}
+  .card:hover{transform:translateY(-4px);border-color:color-mix(in oklab,var(--brand),white 60%);box-shadow:0 18px 48px rgba(46,125,50,.16)}
   .card h3{margin:10px 0 8px;font-size:18px}
   .card p{margin:0;color:var(--muted)}
   .svc-head{display:flex;gap:12px;align-items:flex-start}
-  .icon{width:34px;height:34px;flex:0 0 34px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);border:1px solid var(--line);display:grid;place-items:center}
+  .icon{width:34px;height:34px;flex:0 0 34px;border-radius:12px;background:linear-gradient(180deg,rgba(46,125,50,.08),transparent);border:1px solid var(--line);display:grid;place-items:center;color:var(--brand)}
   .chip{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);background:var(--chip);border:1px solid var(--chip-brd);border-radius:999px;padding:3px 10px}
 
-  /* ===== 2D 時間軸（統一速度、強化美觀） ===== */
-  .timeline{position:relative;border:1px solid var(--line);border-radius:var(--radius-lg);padding:16px;background:
-      linear-gradient(180deg, rgba(139,227,255,.06), transparent 45%), var(--card)}
+  /* ===================== 2D 時間軸（左出右進） ===================== */
+  .timeline{position:relative;border:1px solid var(--line);border-radius:var(--radius-lg);padding:16px;background:var(--card)}
   .timeline-header{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 0 8px}
   .view-toggle{display:flex;gap:8px}
   .pill{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:999px;padding:6px 10px;cursor:pointer;font-size:13px}
-  .pill[aria-pressed="true"]{background:linear-gradient(90deg,var(--brand),var(--accent));color:#0b1020;border-color:transparent}
+  .pill[aria-pressed="true"]{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff;border-color:transparent}
   .timeline .meta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 10px}
   .meta .tag{background:var(--chip);border:1px solid var(--chip-brd);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--muted)}
 
-  .timeline-2d .viewport{position:relative;height:388px;overflow:hidden;border-radius:14px}
+  .timeline-2d .viewport{position:relative;height:396px;overflow:hidden;border-radius:14px}
   .timeline-2d .viewport::before,
-  .timeline-2d .viewport::after{content:""; position:absolute; top:0; width:52px; height:100%; z-index:2; pointer-events:none;}
+  .timeline-2d .viewport::after{content:""; position:absolute; top:0; width:54px; height:100%; z-index:2; pointer-events:none;}
   .timeline-2d .viewport::before{left:0; background:linear-gradient(90deg, var(--card), transparent)}
   .timeline-2d .viewport::after{right:0; background:linear-gradient(270deg, var(--card), transparent)}
-
   .timeline-2d .track{display:flex;height:100%;will-change:transform;transform:translateX(0);transition: transform var(--tl-dur) cubic-bezier(.2,.8,.2,1)}
+
   .timeline-2d .card2d{
-    min-width:100%;box-sizing:border-box;padding:18px 20px;background:
-    linear-gradient(180deg, rgba(255,255,255,.02), transparent 40%), var(--card);
+    min-width:100%;box-sizing:border-box;padding:18px 20px;background:var(--card);
     border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
     display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto 1fr;gap:8px 16px;position:relative;
   }
-  .card2d::before{content:""; position:absolute; left:0; top:0; bottom:0; width:6px; border-radius:16px 0 0 16px; background:linear-gradient(180deg,var(--brand),var(--accent)); opacity:.78;}
-  .badge-year,.badge-temp{grid-column:1/2;grid-row:1/2;display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-weight:800;border:1px solid #2d8e78;background:linear-gradient(90deg,rgba(94,225,161,.22),transparent);color:#0b1020}
+  .card2d::before{content:""; position:absolute; left:0; top:0; bottom:0; width:6px; border-radius:16px 0 0 16px; background:linear-gradient(180deg,var(--brand),var(--accent)); opacity:.9;}
+  .badge-year,.badge-temp{grid-column:1/2;grid-row:1/2;display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-weight:800;border:1px solid color-mix(in oklab,var(--brand),#fff 65%);background:color-mix(in oklab,var(--brand),#fff 85%);color:#0b1020}
   .kicker{grid-column:2/3;grid-row:1/2;align-self:center;color:var(--muted);font-size:13px}
   .title{grid-column:1/3;grid-row:2/3;font-weight:800}
   .body{grid-column:1/3;grid-row:3/4;color:var(--muted);font-size:14px}
   .body ul{margin:8px 0 0 18px;padding:0}
-  .progress{height:3px;background:linear-gradient(90deg,var(--brand),var(--accent));border-radius:999px;transform-origin:left;transform:scaleX(0)}
 
+  .progress{height:4px;margin-top:10px;background:linear-gradient(90deg,var(--brand),var(--accent));border-radius:999px;transform-origin:left;transform:scaleX(0)}
   .tl-actions{display:flex;justify-content:space-between;gap:10px;margin:12px 0 0}
   .tl-btn{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:12px;padding:8px 12px;cursor:pointer}
 
   .rail{display:flex;gap:8px;overflow:auto;padding:8px 2px 2px}
   .rail button{white-space:nowrap;border:1px solid var(--line);background:var(--chip);color:var(--muted);border-radius:999px;padding:6px 10px;cursor:pointer;font-size:12px}
-  .rail button.active{background:linear-gradient(90deg,var(--brand),var(--accent));color:#0b1020;border-color:transparent}
+  .rail button.active{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff;border-color:transparent}
 
   .tl-dots{display:flex;gap:6px;justify-content:center;margin-top:10px}
   .tl-dot{width:8px;height:8px;border-radius:50%;background:var(--line);border:none;cursor:pointer}
@@ -116,7 +138,7 @@
   .listview summary{cursor:pointer;font-weight:700}
   .listview ul{margin:8px 0 0 18px;padding:0;color:var(--muted)}
 
-  /* Contact */
+  /* ===================== 聯繫我們 ===================== */
   .contact{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
   .form{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
   label{display:block;margin:10px 0 6px;font-weight:600}
@@ -130,14 +152,30 @@
   @media (max-width:960px){
     .grid{grid-template-columns:1fr}
     .contact{grid-template-columns:1fr}
-    .hero{padding-top:52px}
-    h1{font-size:36px}
+    .hero{padding-top:56px}
+    h1{font-size:34px}
     .timeline-2d .viewport{height:430px}
   }
-  :focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:10px}
+  :focus-visible{outline:2px solid color-mix(in oklab,var(--brand),#fff 40%);outline-offset:2px;border-radius:10px}
 </style>
 </head>
 <body>
+
+<!-- 快速導覽（只有兩個錨點） -->
+<div class="quicknav-wrap">
+  <div class="container quicknav">
+    <a href="#tw-timeline" aria-label="跳至永續進程">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12l9-6 9 6-9 6-9-6Z" stroke="currentColor" stroke-width="2"/><path d="M7 14v4c0 .6 3 2 5 2s5-1.4 5-2v-4" stroke="currentColor" stroke-width="2"/></svg>
+      永續進程
+    </a>
+    <span class="sep">·</span>
+    <a href="#temp-timeline" aria-label="跳至升溫影響">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v14a4 4 0 1 1-4 4" stroke="currentColor" stroke-width="2"/><path d="M12 3l3 2-3 2-3-2 3-2Z" stroke="currentColor" stroke-width="2"/></svg>
+      升溫影響
+    </a>
+  </div>
+</div>
+
 <header class="container hero">
   <span class="badge">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12l9-6 9 6-9 6-9-6Z" stroke="currentColor" stroke-width="2"/><path d="M7 14v4c0 .6 3 2 5 2s5-1.4 5-2v-4" stroke="currentColor" stroke-width="2"/></svg>
@@ -232,7 +270,7 @@
     </div>
     <div class="meta">
       <span class="tag">依主管機關與交易所公開資料彙整（請自行核對最新公告）</span>
-      <span class="tag">涵蓋：永續報告、ISSB S1/S2 分階段導入、GHG 驗證時程</span>
+      <span class="tag">ISSB S1/S2 分階段導入、GHG 驗證時程、首次全面申報</span>
     </div>
 
     <div class="timeline timeline-2d" id="twWrap" aria-roledescription="carousel">
@@ -317,7 +355,7 @@
 </footer>
 
 <script>
-/* ===== 最新公告（無縫循環、自動重啟） ===== */
+/* ===================== 最新公告（無縫循環） ===================== */
 const NEWS = [
   { title:"10/01 企業內訓開放申請", body:"Q4 ESG/碳盤查與 ISSB/TCFD 模組課程名額有限，歡迎企業預約客製化內訓。", link:"#services" },
   { title:"SBTi 目標規劃諮詢", body:"提供路徑情境、減量專案庫與供應鏈展開建議。", link:"#contact" },
@@ -332,13 +370,13 @@ function renderNews(){
 }
 function updateNews(){ slidesEl.style.transform=`translateX(-${newsIndex*100}%)`; [...dotsEl.children].forEach((d,i)=>d.classList.toggle('active',i===newsIndex)); }
 function nextNews(step=1){ newsIndex=(newsIndex+step+NEWS.length)%NEWS.length; updateNews(); }
-function startAutoNews(){ stopAutoNews(); newsTimer=setInterval(()=>nextNews(1), 5200); }
+function startAutoNews(){ stopAutoNews(); newsTimer=setInterval(()=>nextNews(1), 5400); }
 function stopAutoNews(){ if(newsTimer) clearInterval(newsTimer); newsTimer=null; }
 document.getElementById('prevNews')?.addEventListener('click',()=>{ stopAutoNews(); nextNews(-1); startAutoNews(); });
 document.getElementById('nextNews')?.addEventListener('click',()=>{ stopAutoNews(); nextNews(1);  startAutoNews(); });
 dotsEl.addEventListener('click',e=>{ const i=e.target?.dataset?.dot; if(i==null) return; stopAutoNews(); newsIndex=Number(i); updateNews(); startAutoNews(); });
 
-/* ===== 台灣 2023–2029（細化；請依官方公告更新） ===== */
+/* ===================== 台灣 2023–2029（細化；請依官方公告更新） ===================== */
 const TW_TIMELINE = [
   { year:2023, tag:"路徑發布/制度準備",
     points:[
@@ -396,7 +434,7 @@ const TW_TIMELINE = [
   },
 ];
 
-/* ===== 升溫里程碑與影響（obs/proj，細化） ===== */
+/* ===================== 升溫里程碑與影響（obs/proj，細化） ===================== */
 const TEMP_TIMELINE = [
   { temp:"+0.5°", label:"早期變化（obs）", type:"obs",
     items:[
@@ -436,18 +474,17 @@ const TEMP_TIMELINE = [
     ]},
 ];
 
-/* ===== 2D Slider（統一速度；進度條只在停留時間運作 ⇒ 兩條一致） ===== */
+/* ===================== 2D Slider（統一 hold/dur，進度條只在停留時間運作） ===================== */
 class Slider2D{
   constructor(opts){
     Object.assign(this, opts); // trackEl, dotsEl, detailEl, progressEl, railEl, data, mapCard, mapDetail, labelFn
-    this.index = 1;      // 以中間起點（前後各有 clone）
+    this.index = 1;      // 前後各 clone，從 1 開始
     this.holdMs = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--tl-hold'));
     this.durMs  = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--tl-dur'));
     this.holdTimer = null; this.raf = null;
     this.render(); this.bind();
-    this.jumpTo(this.index);       // 直接定位
-    this.updateDetail(); this.highlight();
-    this.beginHold();              // 初始即啟動停留計時與進度
+    this.jumpTo(this.index); this.updateDetail(); this.highlight();
+    this.beginHold();
   }
   render(){
     const first = this.data[0], last = this.data[this.data.length-1];
@@ -463,15 +500,12 @@ class Slider2D{
       if(this.index === 0){ this.jumpTo(n); }
       else if(this.index === n+1){ this.jumpTo(1); }
       this.updateDetail(); this.highlight();
-      this.beginHold();   // 轉場結束後才開始進度
+      this.beginHold();
     });
-    // dots / rail
     this.dotsEl?.addEventListener('click', (e)=>{ const i=e.target?.dataset?.i; if(i==null) return; this.clearHold(); this.goTo(Number(i)+1); });
     this.railEl?.addEventListener('click', (e)=>{ const b=e.target.closest('button'); if(!b) return; this.clearHold(); this.goTo(Number(b.dataset.i)+1); });
-    // prev / next
     this.prevBtn?.addEventListener('click', ()=>{ this.clearHold(); this.prev(); });
     this.nextBtn?.addEventListener('click', ()=>{ this.clearHold(); this.next(); });
-    // hover 暫停 / 離開恢復
     this.viewportEl?.addEventListener('mouseenter', ()=>this.clearHold());
     this.viewportEl?.addEventListener('mouseleave', ()=>this.beginHold());
   }
@@ -489,7 +523,7 @@ class Slider2D{
   }
   clearHold(){ if(this.holdTimer) clearTimeout(this.holdTimer); this.holdTimer=null; if(this.raf) cancelAnimationFrame(this.raf); this.raf=null; this.progress(0); }
   progress(t){ if(this.progressEl) this.progressEl.style.transform = `scaleX(${t})`; }
-  highlight(){ // dots & rail
+  highlight(){
     const n=this.data.length, ai=(this.index-1+n)%n;
     this.dotsEl && [...this.dotsEl.children].forEach((d,i)=>d.classList.toggle('active', i===ai));
     this.railEl && [...this.railEl.children].forEach((b,i)=>b.classList.toggle('active', i===ai));
@@ -497,7 +531,7 @@ class Slider2D{
   updateDetail(){ const n=this.data.length, ai=(this.index-1+n)%n; const d=this.data[ai]; if(this.detailEl) this.detailEl.innerHTML=this.mapDetail(d); }
 }
 
-/* === 卡片模板 === */
+/* ===================== 卡片模板 ===================== */
 function cardTplTW(d){
   return `<article class="card2d">
     <div class="badge-year">📅 ${d.year}</div>
@@ -507,7 +541,9 @@ function cardTplTW(d){
   </article>`;
 }
 function detailTplTW(d){
-  return `<h3>${d.year}</h3><div class="tag">${d.tag}</div><ul>${d.points.map(p=>`<li>${p}</li>`).join('')}</ul>${d.scopeNote?`<div class="small" style="margin-top:8px">${d.scopeNote}</div>`:''}`;
+  return `<h3>${d.year}</h3><div class="tag">${d.tag}</div>
+  <ul>${d.points.map(p=>`<li>${p}</li>`).join('')}</ul>
+  ${d.scopeNote?`<div class="small" style="margin-top:8px">${d.scopeNote}</div>`:''}`;
 }
 function cardTplTP(d){
   return `<article class="card2d">
@@ -518,10 +554,11 @@ function cardTplTP(d){
   </article>`;
 }
 function detailTplTP(d){
-  return `<h3>${d.temp}</h3><div class="tag">${d.type==='proj'?'預期影響｜':'觀測影響｜'}${d.label}</div><ul>${d.items.map(p=>`<li>${p}</li>`).join('')}</ul>`;
+  return `<h3>${d.temp}</h3><div class="tag">${d.type==='proj'?'預期影響｜':'觀測影響｜'}${d.label}</div>
+  <ul>${d.items.map(p=>`<li>${p}</li>`).join('')}</ul>`;
 }
 
-/* === 建立兩個 Slider（統一 hold/dur，進度條一致） === */
+/* ===================== 建立兩個 Slider ===================== */
 const sliderTW = new Slider2D({
   trackEl: document.getElementById('trackTW'),
   viewportEl: document.querySelector('#twWrap .viewport'),
@@ -551,7 +588,7 @@ const sliderTP = new Slider2D({
   labelFn: d => d.temp
 });
 
-/* 列表檢視（兩軌一致） */
+/* ===================== 列表檢視 ===================== */
 function renderList(container, data, titleKey, tagFn, listKey, noteKey){
   container.innerHTML = data.map(d=>`<details><summary>${d[titleKey]} — <span class="small">${typeof tagFn==='function'?tagFn(d):d[tagFn]||''}</span></summary><ul>${d[listKey].map(li=>`<li>${li}</li>`).join('')}</ul>${noteKey&&d[noteKey]?`<div class="small" style="margin-top:8px">${d[noteKey]}</div>`:''}</details>`).join('');
 }
@@ -567,8 +604,12 @@ function setToggle(is2D, wrapEl, listEl, btn2d, btnList){
   btn2d.setAttribute('aria-pressed',String(is2D));
   btnList.setAttribute('aria-pressed',String(!is2D));
 }
+tw2dBtn.addEventListener('click', ()=> setToggle(true,  twWrap, twList, tw2dBtn, twListBtn));
+twListBtn.addEventListener('click',()=> setToggle(false, twWrap, twList, tw2dBtn, twListBtn));
+tp2dBtn.addEventListener('click', ()=> setToggle(true,  tpWrap, tpList, tp2dBtn, tpListBtn));
+tpListBtn.addEventListener('click',()=> setToggle(false, tpWrap, tpList, tp2dBtn, tpListBtn));
 
-/* 聯繫我們 */
+/* ===================== 聯繫我們 ===================== */
 function sendEmail(e){
   e.preventDefault();
   const name=document.getElementById('name').value.trim();
@@ -588,7 +629,7 @@ function copyForm(){
   navigator.clipboard.writeText(text).then(()=>alert('已複製表單內容，可貼到任意通訊軟體'));
 }
 
-/* 啟動 */
+/* ===================== 啟動 ===================== */
 document.getElementById('yearNow').textContent=new Date().getFullYear();
 renderNews(); startAutoNews();
 </script>
