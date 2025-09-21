@@ -6,25 +6,33 @@
 <title>綠色影響力｜Green Impact</title>
 <meta name="description" content="綠色影響力：專業教育訓練、整合性ESG解決方案、綠領人才培訓與媒合。" />
 <meta name="color-scheme" content="light dark">
+<!--
+  參考資料（摘要，請依實務自行對照最新法規/公告）：
+  - 金管會（FSC）2023/08 路徑圖發布、2024/10 全上市櫃自2025年起編製永續報告之要求
+  - IFRS/ISSB Jurisdiction Profile（Chinese Taipei）2025/06 摘要：2026 年度起對齊 S1/S2 規劃
+  - WMO State of the Global Climate 2024：2024 年全球均溫較工業化前 +1.55°C
+  - WMO 2025–2029 五年預測：年均溫多數年介於 +1.2°C ~ +1.9°C
+  - IPCC SR1.5：1.5°C 與 2.0°C 升溫之風險差異、關鍵部門影響
+-->
 <style>
   :root{
-    --bg:#0b1020; --card:#121a31; --muted:#9fb0d6; --text:#e9efff;
+    --bg:#0b1020; --card:#10172a; --muted:#a7b6de; --text:#e9efff;
     --brand:#5ee1a1; --brand-2:#37b989; --line:#26304f; --ring:#79f6c1; --accent:#8be3ff;
-    --warn:#ffd66b; --danger:#ff8e8e; --shadow:0 12px 36px rgba(0,0,0,.35);
+    --warn:#ffd66b; --danger:#ff8e8e; --shadow:0 14px 36px rgba(2,12,36,.35);
     --radius:16px; --radius-lg:22px; --maxw:1140px;
+    --chip:#0f213f; --chip-brd:#29406f;
+    --grad: radial-gradient(1200px 600px at 10% -10%, rgba(94,225,161,.10), transparent 60%),
+            radial-gradient(1000px 500px at 110% 10%, rgba(139,227,255,.08), transparent 60%),
+            linear-gradient(180deg, rgba(255,255,255,.02), transparent 30%), var(--bg);
   }
   @media (prefers-color-scheme: light){
-    :root{ --bg:#f6f7fb; --card:#fff; --text:#0b1020; --muted:#5a6684; --line:#e6e9f2; --shadow:0 10px 28px rgba(0,10,30,.10);}
+    :root{ --bg:#f6f7fb; --card:#fff; --text:#0b1020; --muted:#5a6684; --line:#e6e9f2; --chip:#f3f6ff; --chip-brd:#d8e1fb; --shadow:0 12px 28px rgba(0,10,30,.10);}
   }
-  html,body{margin:0;padding:0;background:
-    linear-gradient(180deg, rgba(94,225,161,.05), transparent 30%),
-    linear-gradient(180deg, transparent 70%, rgba(139,227,255,.05)),
-    var(--bg);
-    color:var(--text); font:16px/1.6 ui-sans-serif,system-ui,-apple-system,"Noto Sans TC",Segoe UI,Roboto,"PingFang TC","Heiti TC","Microsoft JhengHei",Arial,sans-serif;
-  }
+  html,body{margin:0;padding:0;background:var(--grad);color:var(--text);
+    font:16px/1.6 ui-sans-serif,system-ui,-apple-system,"Noto Sans TC",Segoe UI,Roboto,"PingFang TC","Heiti TC","Microsoft JhengHei",Arial,sans-serif;}
   .container{max-width:var(--maxw);margin:0 auto;padding:24px}
-  .hero{padding:72px 0 44px}
-  .badge{display:inline-block;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--muted)}
+  .hero{padding:68px 0 42px}
+  .badge{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--muted);background:linear-gradient(180deg,rgba(255,255,255,.03),transparent)}
   h1{font-size:44px;line-height:1.12;margin:14px 0 12px;letter-spacing:.4px;
     background:linear-gradient(90deg,#cfe9ff,#5ee1a1 60%,#8be3ff); -webkit-background-clip:text; background-clip:text; color:transparent;}
   .lead{max-width:760px;color:var(--muted);font-size:18px}
@@ -34,7 +42,7 @@
   .btn-primary:hover{transform:translateY(-1px);box-shadow:0 16px 40px rgba(55,185,137,.38)}
   .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
   .btn-ghost:hover{background:rgba(255,255,255,.04)}
-  .section{margin:60px 0}
+  .section{margin:56px 0}
   .section h2{font-size:28px;margin:0 0 8px}
   .section p.sub{margin:0 0 18px;color:var(--muted)}
 
@@ -49,38 +57,50 @@
   .dot.active{background:linear-gradient(90deg,var(--brand),var(--accent))}
   .ctrl{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:10px;padding:6px 10px;cursor:pointer}
 
-  /* 服務卡 */
+  /* 三大服務 */
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s,border-color .25s}
+  .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 16px 18px;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s,border-color .25s}
   .card:hover{transform:translateY(-4px);border-color:#2d8e78;box-shadow:0 18px 48px rgba(94,225,161,.25)}
-  .card h3{margin:8px 0 6px;font-size:18px}
+  .card h3{margin:10px 0 8px;font-size:18px}
   .card p{margin:0;color:var(--muted)}
-  .chip{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
-  .chip i{width:10px;height:10px;border-radius:50%}.chip .g{background:var(--brand)}.chip .b{background:var(--accent)}.chip .y{background:var(--warn)}
+  .svc-head{display:flex;gap:12px;align-items:flex-start}
+  .icon{width:34px;height:34px;flex:0 0 34px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);border:1px solid var(--line);display:grid;place-items:center}
+  .chip{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);background:var(--chip);border:1px solid var(--chip-brd);border-radius:999px;padding:3px 10px}
 
-  /* ===== 2D 時間軸（左出右進） ===== */
-  .timeline{position:relative;border:1px solid var(--line);border-radius:var(--radius-lg);padding:16px;background:var(--card)}
+  /* ===== 2D 時間軸（左出右進，等寬、等速；更美觀） ===== */
+  .timeline{position:relative;border:1px solid var(--line);border-radius:var(--radius-lg);padding:16px;background:
+      linear-gradient(180deg, rgba(139,227,255,.06), transparent 45%), var(--card)}
   .timeline-header{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 0 8px}
   .view-toggle{display:flex;gap:8px}
   .pill{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:999px;padding:6px 10px;cursor:pointer;font-size:13px}
   .pill[aria-pressed="true"]{background:linear-gradient(90deg,var(--brand),var(--accent));color:#0b1020;border-color:transparent}
+  .timeline .meta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 10px}
+  .meta .tag{background:var(--chip);border:1px solid var(--chip-brd);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--muted)}
 
-  .timeline-2d .viewport{position:relative;height:320px;overflow:hidden;border-radius:12px}
-  .timeline-2d .track{display:flex;height:100%;will-change:transform;transform:translateX(0);transition: transform 600ms cubic-bezier(.2,.8,.2,1)}
-  .timeline-2d .card2d{min-width:100%;box-sizing:border-box;padding:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
-  .card2d .year,.card2d .temp{font-weight:800;font-size:18px}
-  .card2d .tag{display:inline-block;margin-top:6px;font-size:12px;color:var(--muted)}
-  .card2d .body{margin-top:10px;color:var(--muted);font-size:14px}
+  .timeline-2d .viewport{position:relative;height:340px;overflow:hidden;border-radius:12px}
+  .timeline-2d .track{display:flex;height:100%;will-change:transform;transform:translateX(0);transition: transform 560ms cubic-bezier(.2,.8,.2,1)}
+  .timeline-2d .card2d{min-width:100%;box-sizing:border-box;padding:16px 18px;background:
+      linear-gradient(180deg, rgba(255,255,255,.02), transparent 40%), var(--card);
+      border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto 1fr;gap:6px 14px}
+  .badge-year{grid-column:1/2;grid-row:1/2;display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-weight:800;border:1px solid #2d8e78;background:linear-gradient(90deg,rgba(94,225,161,.20),transparent);color:#0b1020}
+  .badge-temp{grid-column:1/2;grid-row:1/2;display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-weight:800;border:1px solid #2d8e78;background:linear-gradient(90deg,rgba(94,225,161,.20),transparent);color:#0b1020}
+  .kicker{grid-column:2/3;grid-row:1/2;align-self:center;color:var(--muted);font-size:13px}
+  .title{grid-column:1/3;grid-row:2/3;font-weight:800}
+  .body{grid-column:1/3;grid-row:3/4;color:var(--muted);font-size:14px}
+  .body ul{margin:8px 0 0 18px;padding:0}
 
   .tl-actions{display:flex;justify-content:space-between;gap:10px;margin:10px 0 0}
   .tl-btn{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:12px;padding:8px 12px;cursor:pointer}
   .tl-dots{display:flex;gap:6px;justify-content:center;margin-top:8px}
   .tl-dot{width:8px;height:8px;border-radius:50%;background:var(--line);border:none;cursor:pointer}
   .tl-dot.active{background:linear-gradient(90deg,var(--brand),var(--accent))}
+  .progress{height:3px;background:linear-gradient(90deg,var(--brand),var(--accent));border-radius:999px;transform-origin:left;transform:scaleX(0);transition:transform .56s ease}
 
   /* 詳情面板 */
   .detail{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
-  .detail h3{margin:0 0 6px;font-size:18px}.detail .tag{font-size:12px;color:var(--muted)}.detail ul{margin:8px 0 0 18px;padding:0}
+  .detail h3{margin:0 0 6px;font-size:18px}
+  .detail .tag{font-size:12px;color:var(--muted)}
+  .detail ul{margin:8px 0 0 18px;padding:0}
 
   /* 列表檢視 */
   .listview{display:none;margin-top:8px}
@@ -100,19 +120,22 @@
   .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:13px}
   footer{border-top:1px solid var(--line);margin-top:44px;padding:20px 0;color:var(--muted);font-size:14px}
 
-  @media (max-width:900px){
+  @media (max-width:960px){
     .grid{grid-template-columns:1fr}
     .contact{grid-template-columns:1fr}
     .hero{padding-top:52px}
     h1{font-size:36px}
-    .timeline-2d .viewport{height:360px}
+    .timeline-2d .viewport{height:380px}
   }
   :focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:10px}
 </style>
 </head>
 <body>
 <header class="container hero">
-  <span class="badge">Green Impact</span>
+  <span class="badge">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12l9-6 9 6-9 6-9-6Z" stroke="currentColor" stroke-width="2"/><path d="M7 14v4c0 .6 3 2 5 2s5-1.4 5-2v-4" stroke="currentColor" stroke-width="2"/></svg>
+    Green Impact
+  </span>
   <h1>綠色影響力</h1>
   <p class="lead">以資料與行動為本，協助企業快速落地永續策略：<strong>專業教育訓練</strong>、<strong>整合性 ESG 解決方案</strong>、<strong>綠領人才培訓與媒合</strong>。</p>
   <div class="cta">
@@ -139,30 +162,78 @@
     </div>
   </section>
 
-  <!-- 三大服務 -->
+  <!-- 三大服務（加入 SVG icons） -->
   <section class="section" id="services">
     <h2>我們的三大服務</h2>
     <p class="sub">從盤點到落地，以「教育 × 工具 × 人才」一條龍協作。</p>
     <div class="grid">
-      <article class="card"><div class="chip"><i class="g"></i> 專業教育訓練</div><h3>內訓/公開班｜主管到全員</h3><p>ESG/永續素養、TCFD/ISSB 溝通、溫室氣體盤查與查驗、減碳專案設計、供應鏈溝通與利害關係人管理。</p></article>
-      <article class="card"><div class="chip"><i class="b"></i> 整合性 ESG 解決方案</div><h3>從盤點到揭露與減量</h3><p>重要性分析、SBTi 目標路徑、GHG 盤查(Sc.1~3)、TCFD/ISSB/GRI 揭露框架、數據治理與數位儀表板。</p></article>
-      <article class="card"><div class="chip"><i class="y"></i> 綠領人才培訓與媒合</div><h3>技能養成與專案媒合</h3><p>碳盤查實務班、專案實習、職缺媒合與內部轉職路徑，協助企業建立永續內功與外部人才池。</p></article>
+      <article class="card">
+        <div class="svc-head">
+          <div class="icon" aria-hidden="true">
+            <!-- graduation-cap -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-5 9 5-9 5-9-5Z" stroke="currentColor" stroke-width="2"/><path d="M7 11v5c0 1.1 3 2.5 5 2.5s5-1.4 5-2.5v-5" stroke="currentColor" stroke-width="2"/><path d="M21 10v6" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <div>
+            <span class="chip">專業教育訓練</span>
+            <h3>內訓/公開班｜主管到全員</h3>
+          </div>
+        </div>
+        <p>ESG/永續素養、TCFD/ISSB 溝通、溫室氣體盤查與查驗、減碳專案設計、供應鏈溝通與利害關係人管理。</p>
+      </article>
+
+      <article class="card">
+        <div class="svc-head">
+          <div class="icon" aria-hidden="true">
+            <!-- leaf-shield -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3Z" stroke="currentColor" stroke-width="2"/><path d="M9 13c2-3 5-4 6-6 0 3-2 6-6 9" stroke="currentColor" stroke-width="2" /></svg>
+          </div>
+          <div>
+            <span class="chip">整合性 ESG 解決方案</span>
+            <h3>從盤點到揭露與減量</h3>
+          </div>
+        </div>
+        <p>重要性分析、SBTi 目標路徑、GHG 盤查(Sc.1~3)、ISSB/TCFD/GRI 揭露設計、數據治理與數位儀表板。</p>
+      </article>
+
+      <article class="card">
+        <div class="svc-head">
+          <div class="icon" aria-hidden="true">
+            <!-- users-handshake -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M7 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="2"/>
+              <path d="M2 14c1.2-2.5 3.7-4 6.5-4h7c2.8 0 5.3 1.5 6.5 4" stroke="currentColor" stroke-width="2"/>
+              <path d="M8 15l2.5 2.5a2 2 0 0 0 2.8 0L16 15l2.5 2.5" stroke="currentColor" stroke-width="2" />
+            </svg>
+          </div>
+          <div>
+            <span class="chip">綠領人才培訓與媒合</span>
+            <h3>技能養成與專案媒合</h3>
+          </div>
+        </div>
+        <p>碳盤查實務班、專案實習、職缺媒合與內部轉職路徑，協助企業建立永續內功與外部人才池。</p>
+      </article>
     </div>
   </section>
 
   <!-- 時間軸 1：台灣 2023–2029（2D 左出右進） -->
   <section class="section" id="tw-timeline">
     <div class="timeline-header">
-      <h2 style="margin:0">台灣 2023–2029 永續報告書進程</h2>
+      <h2 style="margin:0">台灣 2023–2029 永續/氣候揭露進程（示意）</h2>
       <div class="view-toggle">
         <button class="pill" id="tw2dBtn" aria-pressed="true">2D</button>
         <button class="pill" id="twListBtn" aria-pressed="false">列表</button>
       </div>
     </div>
-    <p class="sub">以下內容為<strong>示例</strong>與常見實務步驟，請依主管機關最新公告與產業別自行更新。</p>
+    <div class="meta">
+      <span class="tag">依金管會/證交所公開資料彙整</span>
+      <span class="tag">公司應自行依最新規範校對</span>
+    </div>
 
     <div class="timeline timeline-2d" id="twWrap" aria-roledescription="carousel">
-      <div class="viewport"><div class="track" id="trackTW"></div></div>
+      <div class="viewport">
+        <div class="track" id="trackTW"></div>
+      </div>
+      <div class="progress" id="twProgress"></div>
       <div class="tl-actions">
         <button class="tl-btn" data-prev="tw" aria-label="上一張">← 往前</button>
         <button class="tl-btn" data-next="tw" aria-label="下一張">往後 →</button>
@@ -176,16 +247,22 @@
   <!-- 時間軸 2：升溫進度（2D 左出右進） -->
   <section class="section" id="temp-timeline">
     <div class="timeline-header">
-      <h2 style="margin:0">全球升溫進度與影響</h2>
+      <h2 style="margin:0">全球升溫進度與影響（WMO/IPCC 彙整示意）</h2>
       <div class="view-toggle">
         <button class="pill" id="tp2dBtn" aria-pressed="true">2D</button>
         <button class="pill" id="tpListBtn" aria-pressed="false">列表</button>
       </div>
     </div>
-    <p class="sub">以基準年（工業化前）為起點，標示 +0.5°、+0.8°、+1.0°、+1.2°、+1.5°、+2.0° 的<em>觀測/預期</em>影響。</p>
+    <div class="meta">
+      <span class="tag">現況以年均趨勢觀察</span>
+      <span class="tag">不同地區影響差異大</span>
+    </div>
 
     <div class="timeline timeline-2d" id="tpWrap" aria-roledescription="carousel">
-      <div class="viewport"><div class="track" id="trackTemp"></div></div>
+      <div class="viewport">
+        <div class="track" id="trackTemp"></div>
+      </div>
+      <div class="progress" id="tpProgress"></div>
       <div class="tl-actions">
         <button class="tl-btn" data-prev="temp" aria-label="上一張">← 往前</button>
         <button class="tl-btn" data-next="temp" aria-label="下一張">往後 →</button>
@@ -195,7 +272,7 @@
     </div>
     <div class="listview" id="tpList"></div>
 
-    <p class="small" style="margin-top:10px">說明：上述為教育示意與常見研究結論的歸納，實際風險將依地區/情境而異，建議搭配貴公司風險地圖與在地資料進一步評估。</p>
+    <p class="small" style="margin-top:10px">說明：上述為教育示意與多來源研究結論之整理，實際風險依地區/產業/暴露程度而異。</p>
   </section>
 
   <!-- 聯繫我們 -->
@@ -219,9 +296,9 @@
         <p style="margin:0 0 8px">Email：<a href="mailto:hello@greenimpact.example" class="mono">hello@greenimpact.example</a><br>服務時間：週一～週五 09:30–18:00</p>
         <h3 style="margin:12px 0 8px">常見需求</h3>
         <ul style="margin:0 0 0 18px;padding:0">
-          <li>上市櫃公司年度永續報告書規劃</li>
+          <li>年度永續報告書規劃與撰審</li>
           <li>GHG 盤查（範疇 1/2/3）與外部查驗介接</li>
-          <li>TCFD/ISSB/GRI 揭露內容校對與資料治理</li>
+          <li>ISSB/TCFD/GRI 揭露對齊與資料治理</li>
           <li>內訓課程與綠領人才媒合</li>
         </ul>
       </aside>
@@ -237,28 +314,111 @@
 </footer>
 
 <script>
-/* ===== 資料 ===== */
+/* ===== 資料（依公開資訊彙整） ===== */
 const NEWS = [
-  { title:"10/01 企業內訓開放申請", body:"Q4 ESG/碳盤查與 TCFD 模組課程名額有限，歡迎企業預約客製化內訓。", link:"#services" },
-  { title:"SBTi 目標規劃諮詢", body:"提供目標情境路徑、減量專案庫與供應鏈展開建議。", link:"#contact" },
-  { title:"ISSB/GRI 對照表工具", body:"示範資料治理與揭露欄位映射，提升產出效率。", link:"#tw-timeline" },
+  { title:"10/01 企業內訓開放申請", body:"Q4 ESG/碳盤查與 ISSB/TCFD 模組課程名額有限，歡迎企業預約客製化內訓。", link:"#services" },
+  { title:"SBTi 目標規劃諮詢", body:"提供路徑情境、減量專案庫與供應鏈展開建議。", link:"#contact" },
+  { title:"ISSB/GRI 對照表工具示範", body:"快速對齊披露欄位與資料治理規格。", link:"#tw-timeline" },
 ];
+
+/* 台灣 2023–2029 進程（示意，請依最新法規更新） */
 const TW_TIMELINE = [
-  { year:2023, tag:"準備/先導", points:["建立董事會/高階治理與責任分工","盤點重大議題與利害關係人溝通機制","GHG 盤查（範疇1+2）流程上路","彙整各部門數據治理規範"], scopeNote:"示例：大型上市公司與高碳排產業優先啟動盤點/制度建置" },
-  { year:2024, tag:"擴大實施", points:["揭露框架對齊（如：ISSB/TCFD/GRI）","設定中長期減碳目標（可參考 SBTi）","供應鏈資料蒐集試辦","部分指標啟動外部查驗（有限確信）"], scopeNote:"示例：特定條件之上市/上櫃/興櫃公司逐步要求揭露" },
-  { year:2025, tag:"常態化揭露", points:["完整 TCFD 四構面揭露","範疇3 重要類別初步量化","風險機會情境分析納入決策","外部確信範圍擴大"], scopeNote:"示例：多數上市櫃公司納入年度報告書揭露" },
-  { year:2026, tag:"供應鏈整合", points:["供應鏈資料串接與減量專案落地","內部碳定價試行","產品/服務碳足跡擴增"], scopeNote:"示例：上下游資料品質與一致性提升" },
-  { year:2027, tag:"中期檢核", points:["目標進度回顧與差距補強","轉型投資與財務影響揭露深化","跨部門績效連動與獎懲機制"], scopeNote:"示例：中期減量績效與治理成熟度檢查" },
-  { year:2028, tag:"數據深化", points:["自動化資料蒐集與API串接","供應鏈展開率提升與多區域管理","查驗與數據稽核數位化"], scopeNote:"示例：資料治理與數位保證成熟" },
-  { year:2029, tag:"全面到位", points:["揭露常態化且與策略整合","全範疇與供應鏈目標一致化","績效對齊財務與資本市場溝通"], scopeNote:"示例：法規全面到位，治理與執行常態化" },
+  { year:2023, tag:"路徑發布/制度準備",
+    points:[
+      "金管會發布「對齊 IFRS/ISSB 永續揭露標準路徑圖」；啟動各界協作與意見蒐集",
+      "公司層級：建立董事會監督與管理階層責任分工、重要性分析流程",
+      "資料層級：完成範疇1&2 溫室氣體盤查流程布建；盤點範疇3 重大類別"
+    ],
+    scopeNote:"依 FSC 2023 路徑圖"
+  },
+  { year:2024, tag:"全面備戰/流程擴充",
+    points:[
+      "強化永續報告內控與證據鏈；啟動供應鏈資料蒐集試辦",
+      "依產業別補強指標與情境分析方法（對齊 TCFD/ISSB）",
+      "評估查驗界面與範圍，為後續第三方確信作準備"
+    ],
+    scopeNote:"為 2025 起全面編製鋪路"
+  },
+  { year:2025, tag:"全面編製（申報年）",
+    points:[
+      "所有 TWSE/TPEx 上市櫃公司自 2025 年起應編製 2024 年度永續報告，8 月底前完成申報",
+      "揭露結構對齊 ISSB/TCFD 之治理、策略、風險管理、指標與目標",
+      "GHG 盤查持續擴充與品質管理；視公司情形進行第三方確信（有限）"
+    ],
+    scopeNote:"依 FSC 2024/10 公告"
+  },
+  { year:2026, tag:"ISSB 級距導入",
+    points:[
+      "依主管機關進度，對齊 IFRS S1/S2 的揭露要求（自 2026 年度起陸續適用）",
+      "落實重要性與財務關聯性判斷；提升跨表格/附註的一致性",
+      "擴大範疇3 重要類別量化與供應鏈展開率"
+    ],
+    scopeNote:"依 IFRS/ISSB 地域適用概要"
+  },
+  { year:2027, tag:"查驗與治理深化",
+    points:[
+      "擴大外部確信範圍（優先於範疇1&2 指標與關鍵揭露）",
+      "內部碳定價/減碳專案績效管理導入；跨部門 KPI 串接",
+      "情境/壓力測試納入資本配置與風險管理"
+    ],
+    scopeNote:"逐年提高資訊品質與可比較性"
+  },
+  { year:2028, tag:"資料治理/供應鏈整合",
+    points:[
+      "資料治理系統化（API/自動化蒐集、版本管控、稽核軌跡）",
+      "多區域/多事業群一致性與供應鏈查證協作",
+      "查驗流程與樣本擴大，提升保證等級可行性評估"
+    ],
+    scopeNote:"以數據化提升效率與可靠度"
+  },
+  { year:2029, tag:"溫室氣體第三方驗證到位",
+    points:[
+      "全體上市櫃完成溫室氣體第三方驗證（至少涵蓋範疇1&2）",
+      "依合併財報一致之邊界辦理，並於永續報告揭露驗證結果",
+      "與資本市場溝通常態化，治理/執行全面到位"
+    ],
+    scopeNote:"依 FSC 路徑說明（示意）"
+  },
 ];
+
+/* 升溫里程碑與影響（WMO/IPCC/多來源整理） */
 const TEMP_TIMELINE = [
-  { temp:"+0.5°", label:"早期變化",  items:["極端高溫天數略增、局部熱浪加劇","珊瑚白化事件頻率上升"], type:"obs" },
-  { temp:"+0.8°", label:"極端天氣增多", items:["暴雨/乾旱事件機率提高","農作產量年際波動增加"], type:"obs" },
-  { temp:"+1.0°", label:"城市衝擊顯著", items:["北極海冰範圍縮小、熱浪強度上升","公共衛生與室內降溫需求增加"], type:"obs" },
-  { temp:"+1.2°", label:"當前區間",   items:["沿海淹水與基礎設施耐受風險上揚","保險理賠與營運中斷成本攀升"], type:"obs" },
-  { temp:"+1.5°", label:"關鍵門檻",   items:["極端熱浪頻率與強度大幅提升（對勞動/電力尖峰衝擊）","珊瑚礁大規模退化、部分生態服務喪失風險"], type:"proj" },
-  { temp:"+2.0°", label:"高風險情境", items:["海平面上升與極端降雨/風暴潮風險加劇","農業/水資源壓力與供應鏈中斷風險擴大"], type:"proj" },
+  { temp:"+0.5°", label:"早期變化（歷史）", type:"obs",
+    items:[
+      "極端高溫天數較前工業化顯著增加的早期跡象",
+      "珊瑚白化事件頻率開始上升；雪冰覆蓋期縮短",
+      "區域性暴雨/乾旱事件波動加劇的初步觀測"
+    ]},
+  { temp:"+0.8°", label:"極端天氣變率上升", type:"obs",
+    items:[
+      "強降雨與短延時暴雨機率提高；城市逕流風險上升",
+      "乾旱/野火季節延長（地中海型、加州、澳洲等地）",
+      "農作年際產量波動增，多地需調整作期與品種"
+    ]},
+  { temp:"+1.0°", label:"城市/健康衝擊顯著", type:"obs",
+    items:[
+      "熱浪頻率、強度、持續時間上升；夜間不舒適度升高",
+      "北極海冰面積與厚度下滑；山區冰川持續消融",
+      "電力尖峰負載上揚，建築降溫需求擴大"
+    ]},
+  { temp:"+1.2°", label:"當前區間（近年均值）", type:"obs",
+    items:[
+      "沿海洪氾與風暴潮脆弱性升；保險理賠與中斷成本攀升",
+      "多流域呈異常濕/旱狀態比例升高，水資源調度壓力增",
+      "2024 年為觀測史最暖年（年均約 +1.55°C），多項氣候指標創新高"
+    ]},
+  { temp:"+1.5°", label:"關鍵門檻（預期）", type:"proj",
+    items:[
+      "極端熱浪與濕球溫度事件風險大幅提升，勞動生產力與公共健康衝擊擴大",
+      "暴雨強度與頻率更高；都市排水與關鍵基礎設施需升級",
+      "珊瑚礁大規模退化風險顯著；部分生態服務喪失"
+    ]},
+  { temp:"+2.0°", label:"高風險情境（預期）", type:"proj",
+    items:[
+      "海平面上升與風暴潮/極端降雨複合事件更常見，沿海資產風險攀升",
+      "作物適生帶北移/高遷；水資源與糧食安全壓力增，中斷風險擴大",
+      "跨區域移民與供應鏈風險升高，保險可保性下降"
+    ]},
 ];
 
 /* ===== 公告輪播 ===== */
@@ -271,105 +431,119 @@ function renderNews(){
 }
 function updateNews(){ slidesEl.style.transform=`translateX(-${newsIndex*100}%)`; [...dotsEl.children].forEach((d,i)=>d.classList.toggle('active',i===newsIndex)); }
 function nextNews(step=1){ newsIndex=(newsIndex+step+NEWS.length)%NEWS.length; updateNews(); }
-function startAutoNews(){ stopAutoNews(); newsTimer=setInterval(()=>nextNews(1),4800); }
+function startAutoNews(){ stopAutoNews(); newsTimer=setInterval(()=>nextNews(1),5200); }
 function stopAutoNews(){ if(newsTimer) clearInterval(newsTimer); newsTimer=null; }
-
 document.getElementById('prevNews')?.addEventListener('click',()=>nextNews(-1));
 document.getElementById('nextNews')?.addEventListener('click',()=>nextNews(1));
 document.getElementById('toggleAuto')?.addEventListener('click',e=>{ autoPlayNews=!autoPlayNews; e.currentTarget.setAttribute('aria-pressed',String(autoPlayNews)); autoPlayNews?startAutoNews():stopAutoNews();});
 dotsEl.addEventListener('click',e=>{ const i=e.target?.dataset?.dot; if(i==null) return; newsIndex=Number(i); updateNews(); });
 
-/* ===== 2D 時間軸 Slider（左出右進，等寬、等速） ===== */
+/* ===== 2D Slider（左出右進，等寬、等速，帶進度條） ===== */
 class Slider2D{
   constructor(opts){
-    Object.assign(this, opts); // trackEl, dotsEl, detailEl, data, mapCard, mapDetail
-    this.index = 1; // 中間起點（前後各有一個 clone）
-    this.holdMs = 2000; // 每張停留 2 秒
-    this.durationMs = 600; // 動畫時長（等速）
-    this.timer = null;
-    this.isAuto = true;
-    this.render();
-    this.bind();
-    this.goTo(this.index, true); // 直接定位起始
+    Object.assign(this, opts); // trackEl, dotsEl, detailEl, progressEl, data, mapCard, mapDetail
+    this.index = 1; // 中間起點（前後各 clone）
+    this.holdMs = 2200; // 停 2.2 秒（含進度條）
+    this.durationMs = 560; // 動畫時長（等速）
+    this.timer = null; this.isAuto = true;
+    this.render(); this.bind();
+    this.goTo(this.index, true); // 定位起始
     this.scheduleNext();
+    this.drawProgress(0);
   }
   render(){
     const first = this.data[0], last = this.data[this.data.length-1];
     const cards = [last, ...this.data, first];
     this.trackEl.innerHTML = cards.map(this.mapCard).join('');
-    // dots
-    if(this.dotsEl){
-      this.dotsEl.innerHTML = this.data.map((_,i)=>`<button class="tl-dot" data-i="${i}"></button>`).join('');
-    }
+    if(this.dotsEl){ this.dotsEl.innerHTML = this.data.map((_,i)=>`<button class="tl-dot" data-i="${i}"></button>`).join(''); }
   }
   bind(){
     this.trackEl.style.transition = `transform ${this.durationMs}ms cubic-bezier(.2,.8,.2,1)`;
     this.trackEl.addEventListener('transitionend', ()=>{
       const n = this.data.length;
-      if(this.index === 0){ // 前面的 clone，跳到實際最後一張
-        this.index = n; this.jumpTo(this.index);
-      } else if(this.index === n+1){ // 後面的 clone，跳到第 1 張
-        this.index = 1; this.jumpTo(this.index);
-      }
-      this.updateDetail();
-      this.highlightDot();
-      if(this.isAuto) this.scheduleNext();
+      if(this.index === 0){ this.index = n; this.jumpTo(this.index); }
+      else if(this.index === n+1){ this.index = 1; this.jumpTo(this.index); }
+      this.updateDetail(); this.highlightDot(); if(this.isAuto) this.scheduleNext();
     });
-    // dots 點擊
+    // dots
     this.dotsEl?.addEventListener('click', (e)=>{
       const i = e.target?.dataset?.i; if(i==null) return;
-      this.stopAuto(); this.goTo(Number(i)+1); // +1 因為有前置 clone
+      this.stopAuto(); this.goTo(Number(i)+1);
     });
-    // 上一/下一
+    // prev/next
     this.prevBtn?.addEventListener('click', ()=>{ this.stopAuto(); this.prev(); });
     this.nextBtn?.addEventListener('click', ()=>{ this.stopAuto(); this.next(); });
-    // 懸停暫停、自動恢復
+    // hover pause
     this.viewportEl?.addEventListener('mouseenter', ()=>this.stopAuto());
     this.viewportEl?.addEventListener('mouseleave', ()=>this.startAuto());
   }
   transform(){ this.trackEl.style.transform = `translateX(-${this.index * 100}%)`; }
-  goTo(i, instant=false){ this.index=i; if(instant){ const t=this.trackEl.style.transition; this.trackEl.style.transition='none'; this.transform(); this.trackEl.offsetHeight; this.trackEl.style.transition=t; this.updateDetail(); this.highlightDot(); } else { this.transform(); } }
+  goTo(i, instant=false){ this.index=i; if(instant){ const t=this.trackEl.style.transition; this.trackEl.style.transition='none'; this.transform(); this.trackEl.offsetHeight; this.trackEl.style.transition=t; this.updateDetail(); this.highlightDot(); } else { this.transform(); } this.animateProgress(); }
   jumpTo(i){ const t=this.trackEl.style.transition; this.trackEl.style.transition='none'; this.index=i; this.transform(); this.trackEl.offsetHeight; this.trackEl.style.transition=t; }
   next(){ this.goTo(this.index+1); }
   prev(){ this.goTo(this.index-1); }
-  scheduleNext(){ clearTimeout(this.timer); this.timer = setTimeout(()=> this.next(), this.holdMs); }
+  scheduleNext(){ clearTimeout(this.timer); this.timer = setTimeout(()=> this.next(), this.holdMs); this.animateProgress(); }
   startAuto(){ if(this.isAuto) { this.scheduleNext(); } else { this.isAuto=true; this.scheduleNext(); } }
-  stopAuto(){ this.isAuto=false; clearTimeout(this.timer); this.timer=null; }
+  stopAuto(){ this.isAuto=false; clearTimeout(this.timer); this.timer=null; this.drawProgress(0); }
   highlightDot(){ if(!this.dotsEl) return; const n=this.data.length; const ai=(this.index-1+n)%n; [...this.dotsEl.children].forEach((d,i)=>d.classList.toggle('active', i===ai)); }
   updateDetail(){ if(!this.detailEl) return; const n=this.data.length; const ai=(this.index-1+n)%n; const d=this.data[ai]; this.detailEl.innerHTML = this.mapDetail(d); }
+  animateProgress(){
+    if(!this.progressEl) return;
+    this.drawProgress(0); // reset
+    const start = performance.now(), dur = this.holdMs;
+    const step = (now)=>{
+      const t = Math.min(1, (now - start)/dur);
+      this.drawProgress(t);
+      if (t < 1 && this.isAuto && this.timer) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  drawProgress(t){ if(this.progressEl){ this.progressEl.style.transform = `scaleX(${t})`; } }
 }
 
-/* === 建立兩個 Slider === */
+/* === 卡片模板 === */
 function cardTplTW(d){
-  return `<article class="card2d"><div class="year">${d.year}</div><div class="tag">${d.tag}</div><div class="body"><ul style="margin:8px 0 0 18px;padding:0">${d.points.map(p=>`<li>${p}</li>`).join('')}</ul>${d.scopeNote?`<div class="small" style="margin-top:8px">${d.scopeNote}</div>`:''}</div></article>`;
+  return `<article class="card2d">
+    <div class="badge-year">📅 ${d.year}</div>
+    <div class="kicker">${d.tag}</div>
+    <div class="title">${d.scopeNote || ""}</div>
+    <div class="body"><ul>${d.points.map(p=>`<li>${p}</li>`).join('')}</ul></div>
+  </article>`;
 }
 function detailTplTW(d){
   return `<h3>${d.year}</h3><div class="tag">${d.tag}</div><ul>${d.points.map(p=>`<li>${p}</li>`).join('')}</ul>${d.scopeNote?`<div class="small" style="margin-top:8px">${d.scopeNote}</div>`:''}`;
 }
 function cardTplTP(d){
-  return `<article class="card2d"><div class="temp">${d.temp}</div><div class="tag">${d.type==='proj'?'預期影響｜':'觀測影響｜'}${d.label}</div><div class="body"><ul style="margin:8px 0 0 18px;padding:0">${d.items.map(p=>`<li>${p}</li>`).join('')}</ul></div></article>`;
+  return `<article class="card2d">
+    <div class="badge-temp">🌡 ${d.temp}</div>
+    <div class="kicker">${d.type==='proj'?'預期影響｜':'觀測影響｜'}${d.label}</div>
+    <div class="title">${d.type==='proj' ? '中長期風險與適應重點' : '近期觀測與管理應對'}</div>
+    <div class="body"><ul>${d.items.map(p=>`<li>${p}</li>`).join('')}</ul></div>
+  </article>`;
 }
 function detailTplTP(d){
   return `<h3>${d.temp}</h3><div class="tag">${d.type==='proj'?'預期影響｜':'觀測影響｜'}${d.label}</div><ul>${d.items.map(p=>`<li>${p}</li>`).join('')}</ul>`;
 }
 
+/* === 建立兩個 Slider === */
 const sliderTW = new Slider2D({
   trackEl: document.getElementById('trackTW'),
   viewportEl: document.querySelector('#twWrap .viewport'),
   dotsEl: document.getElementById('twDots'),
   detailEl: document.getElementById('twDetail'),
+  progressEl: document.getElementById('twProgress'),
   prevBtn: document.querySelector('[data-prev="tw"]'),
   nextBtn: document.querySelector('[data-next="tw"]'),
   data: TW_TIMELINE,
   mapCard: cardTplTW,
   mapDetail: detailTplTW,
 });
-
 const sliderTP = new Slider2D({
   trackEl: document.getElementById('trackTemp'),
   viewportEl: document.querySelector('#tpWrap .viewport'),
   dotsEl: document.getElementById('tpDots'),
   detailEl: document.getElementById('tpDetail'),
+  progressEl: document.getElementById('tpProgress'),
   prevBtn: document.querySelector('[data-prev="temp"]'),
   nextBtn: document.querySelector('[data-next="temp"]'),
   data: TEMP_TIMELINE,
@@ -387,20 +561,19 @@ const twWrap=document.getElementById('twWrap'), twList=document.getElementById('
 const tpWrap=document.getElementById('tpWrap'), tpList=document.getElementById('tpList');
 renderList(twList, TW_TIMELINE, 'year', 'tag', 'points', 'scopeNote');
 renderList(tpList, TEMP_TIMELINE, 'temp', d=> (d.type==='proj'?'預期影響｜':'觀測影響｜')+d.label, 'items', null);
-function setToggle(is2D, wrapEl, listEl, btn2d, btnList){ wrapEl.style.display=is2D?'block':'none'; listEl.classList.toggle('active',!is2D); btn2d.setAttribute('aria-pressed',String(is2D)); btnList.setAttribute('aria-pressed',String(!is2D)); if(is2D){ /* 返回 2D 時恢復自動 */ if(wrapEl.id==='twWrap') sliderTW.startAuto(); else sliderTP.startAuto(); } }
-
+function setToggle(is2D, wrapEl, listEl, btn2d, btnList){ wrapEl.style.display=is2D?'block':'none'; listEl.classList.toggle('active',!is2D); btn2d.setAttribute('aria-pressed',String(is2D)); btnList.setAttribute('aria-pressed',String(!is2D)); if(is2D){ if(wrapEl.id==='twWrap') sliderTW.startAuto(); else sliderTP.startAuto(); } }
 tw2dBtn.addEventListener('click', ()=> setToggle(true,  twWrap, twList, tw2dBtn, twListBtn));
 twListBtn.addEventListener('click',()=> { sliderTW.stopAuto(); setToggle(false, twWrap, twList, tw2dBtn, twListBtn); });
-tp2dBtn.addEventListener('click',()=> setToggle(true,  tpWrap, tpList, tp2dBtn, tpListBtn));
+tp2dBtn.addEventListener('click', ()=> setToggle(true,  tpWrap, tpList, tp2dBtn, tpListBtn));
 tpListBtn.addEventListener('click',()=> { sliderTP.stopAuto(); setToggle(false, tpWrap, tpList, tp2dBtn, tpListBtn); });
 
-/* 鍵盤左右鍵同步兩條（也會暫停自動播放 1 次） */
+/* 鍵盤左右鍵同步兩條（也會暫停自動播放一次） */
 addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft'){ sliderTW.stopAuto(); sliderTP.stopAuto(); sliderTW.prev(); sliderTP.prev(); }
   if(e.key==='ArrowRight'){ sliderTW.stopAuto(); sliderTP.stopAuto(); sliderTW.next(); sliderTP.next(); }
 });
 
-/* ===== 聯繫我們 ===== */
+/* 聯繫我們 */
 function sendEmail(e){
   e.preventDefault();
   const name=document.getElementById('name').value.trim();
