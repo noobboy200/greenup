@@ -9,12 +9,16 @@
 <style>
   :root{
     --bg:#0b1020; --card:#0f1730; --muted:#a7b6de; --text:#e9efff;
-    --brand:#59e7b0; --brand-2:#28b88a; --line:#26304f; --ring:#79f6c1; --accent:#8bd7ff;
+    --brand:#5fe0b0; --brand-2:#28b88a; --line:#26304f; --ring:#79f6c1; --accent:#8bd7ff;
     --warn:#ffd66b; --danger:#ff8e8e; --shadow:0 14px 36px rgba(2,12,36,.35);
     --radius:16px; --radius-lg:22px; --maxw:1140px; --chip:#0e2346; --chip-brd:#29406f;
     --grad: radial-gradient(1200px 600px at 5% -10%, rgba(94,225,161,.10), transparent 60%),
             radial-gradient(900px 420px at 110% 0%, rgba(139,227,255,.08), transparent 60%),
             linear-gradient(180deg, rgba(255,255,255,.02), transparent 30%), var(--bg);
+
+    /* 統一時間軸速度 */
+    --tl-hold: 3400ms;   /* 每張停留 */
+    --tl-dur:  800ms;    /* 轉場動畫 */
   }
   @media (prefers-color-scheme: light){
     :root{ --bg:#f6f7fb; --card:#fff; --text:#0b1020; --muted:#5a6684; --line:#e6e9f2; --chip:#f3f6ff; --chip-brd:#d8e1fb; --shadow:0 12px 28px rgba(0,10,30,.10);}
@@ -26,7 +30,7 @@
   .badge{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--muted);background:linear-gradient(180deg,rgba(255,255,255,.03),transparent)}
   h1{font-size:44px;line-height:1.12;margin:14px 0 12px;letter-spacing:.4px;
     background:linear-gradient(90deg,#cfe9ff,#5ee1a1 60%,#8be3ff); -webkit-background-clip:text; background-clip:text; color:transparent;}
-  .lead{max-width:760px;color:var(--muted);font-size:18px}
+  .lead{max-width:820px;color:var(--muted);font-size:18px}
   .cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
   .btn{appearance:none;border:none;border-radius:999px;padding:12px 18px;font-weight:700;cursor:pointer;box-shadow:var(--shadow);transition:.25s transform,.25s box-shadow,.25s background,.25s border-color}
   .btn-primary{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#0b1020}
@@ -58,7 +62,7 @@
   .icon{width:34px;height:34px;flex:0 0 34px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);border:1px solid var(--line);display:grid;place-items:center}
   .chip{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);background:var(--chip);border:1px solid var(--chip-brd);border-radius:999px;padding:3px 10px}
 
-  /* ===== 2D 時間軸（左出右進，等寬、等速；美化） ===== */
+  /* ===== 2D 時間軸（統一速度、強化美觀） ===== */
   .timeline{position:relative;border:1px solid var(--line);border-radius:var(--radius-lg);padding:16px;background:
       linear-gradient(180deg, rgba(139,227,255,.06), transparent 45%), var(--card)}
   .timeline-header{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 0 8px}
@@ -68,33 +72,28 @@
   .timeline .meta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 10px}
   .meta .tag{background:var(--chip);border:1px solid var(--chip-brd);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--muted)}
 
-  .timeline-2d .viewport{position:relative;height:360px;overflow:hidden;border-radius:14px}
+  .timeline-2d .viewport{position:relative;height:388px;overflow:hidden;border-radius:14px}
   .timeline-2d .viewport::before,
-  .timeline-2d .viewport::after{
-    content:""; position:absolute; top:0; width:48px; height:100%; z-index:2; pointer-events:none;
-  }
+  .timeline-2d .viewport::after{content:""; position:absolute; top:0; width:52px; height:100%; z-index:2; pointer-events:none;}
   .timeline-2d .viewport::before{left:0; background:linear-gradient(90deg, var(--card), transparent)}
   .timeline-2d .viewport::after{right:0; background:linear-gradient(270deg, var(--card), transparent)}
-  .timeline-2d .track{display:flex;height:100%;will-change:transform;transform:translateX(0);transition: transform 900ms cubic-bezier(.2,.8,.2,1)} /* 慢速 */
+
+  .timeline-2d .track{display:flex;height:100%;will-change:transform;transform:translateX(0);transition: transform var(--tl-dur) cubic-bezier(.2,.8,.2,1)}
   .timeline-2d .card2d{
-      min-width:100%;box-sizing:border-box;padding:18px 20px;background:
-      linear-gradient(180deg, rgba(255,255,255,.02), transparent 40%), var(--card);
-      border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
-      display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto 1fr;gap:6px 14px;position:relative;
+    min-width:100%;box-sizing:border-box;padding:18px 20px;background:
+    linear-gradient(180deg, rgba(255,255,255,.02), transparent 40%), var(--card);
+    border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
+    display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto 1fr;gap:8px 16px;position:relative;
   }
-  .card2d::before{
-    content:""; position:absolute; left:0; top:0; bottom:0; width:6px; border-radius:16px 0 0 16px;
-    background:linear-gradient(180deg,var(--brand),var(--accent));
-    opacity:.75;
-  }
+  .card2d::before{content:""; position:absolute; left:0; top:0; bottom:0; width:6px; border-radius:16px 0 0 16px; background:linear-gradient(180deg,var(--brand),var(--accent)); opacity:.78;}
   .badge-year,.badge-temp{grid-column:1/2;grid-row:1/2;display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-weight:800;border:1px solid #2d8e78;background:linear-gradient(90deg,rgba(94,225,161,.22),transparent);color:#0b1020}
   .kicker{grid-column:2/3;grid-row:1/2;align-self:center;color:var(--muted);font-size:13px}
   .title{grid-column:1/3;grid-row:2/3;font-weight:800}
   .body{grid-column:1/3;grid-row:3/4;color:var(--muted);font-size:14px}
   .body ul{margin:8px 0 0 18px;padding:0}
-  .progress{height:3px;background:linear-gradient(90deg,var(--brand),var(--accent));border-radius:999px;transform-origin:left;transform:scaleX(0);transition:transform .9s linear}
+  .progress{height:3px;background:linear-gradient(90deg,var(--brand),var(--accent));border-radius:999px;transform-origin:left;transform:scaleX(0)}
 
-  .tl-actions{display:flex;justify-content:space-between;gap:10px;margin:10px 0 0}
+  .tl-actions{display:flex;justify-content:space-between;gap:10px;margin:12px 0 0}
   .tl-btn{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:12px;padding:8px 12px;cursor:pointer}
 
   .rail{display:flex;gap:8px;overflow:auto;padding:8px 2px 2px}
@@ -133,7 +132,7 @@
     .contact{grid-template-columns:1fr}
     .hero{padding-top:52px}
     h1{font-size:36px}
-    .timeline-2d .viewport{height:400px}
+    .timeline-2d .viewport{height:430px}
   }
   :focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:10px}
 </style>
@@ -153,10 +152,10 @@
 </header>
 
 <main class="container">
-  <!-- 最新公告 -->
+  <!-- 最新公告（無縫循環） -->
   <section class="section" id="news">
     <h2>最新公告</h2>
-    <p class="sub">支援手動/自動輪播；點選圓點可快速切換。</p>
+    <p class="sub">支援手動/自動輪播，無縫循環；點選圓點可快速切換。</p>
     <div class="announce">
       <div class="ticker" aria-live="polite"><div class="slides" id="newsSlides"></div></div>
       <div class="ticker-controls">
@@ -164,7 +163,6 @@
         <div style="display:flex;gap:8px">
           <button class="ctrl" id="prevNews" aria-label="上一則">←</button>
           <button class="ctrl" id="nextNews" aria-label="下一則">→</button>
-          <button class="ctrl" id="toggleAuto" aria-pressed="true" title="自動播放切換">⟳</button>
         </div>
       </div>
     </div>
@@ -186,7 +184,7 @@
             <h3>內訓/公開班｜主管到全員</h3>
           </div>
         </div>
-        <p>ESG/永續素養、TCFD/ISSB 溝通、溫室氣體盤查與查驗、減碳專案設計、供應鏈溝通與利害關係人管理。</p>
+        <p>ESG/永續素養、ISSB/TCFD 溝通、溫室氣體盤查與查驗、減碳專案設計、供應鏈溝通與利害關係人管理。</p>
       </article>
 
       <article class="card">
@@ -233,14 +231,12 @@
       </div>
     </div>
     <div class="meta">
-      <span class="tag">依主管機關公開資料彙整（請自行核對最新公告）</span>
-      <span class="tag">涵蓋治理/策略/風險管理/指標目標</span>
+      <span class="tag">依主管機關與交易所公開資料彙整（請自行核對最新公告）</span>
+      <span class="tag">涵蓋：永續報告、ISSB S1/S2 分階段導入、GHG 驗證時程</span>
     </div>
 
     <div class="timeline timeline-2d" id="twWrap" aria-roledescription="carousel">
-      <div class="viewport">
-        <div class="track" id="trackTW"></div>
-      </div>
+      <div class="viewport"><div class="track" id="trackTW"></div></div>
       <div class="progress" id="twProgress"></div>
       <div class="rail" id="twRail"></div>
       <div class="tl-actions">
@@ -268,9 +264,7 @@
     </div>
 
     <div class="timeline timeline-2d" id="tpWrap" aria-roledescription="carousel">
-      <div class="viewport">
-        <div class="track" id="trackTemp"></div>
-      </div>
+      <div class="viewport"><div class="track" id="trackTemp"></div></div>
       <div class="progress" id="tpProgress"></div>
       <div class="rail" id="tpRail"></div>
       <div class="tl-actions">
@@ -281,6 +275,7 @@
       <div class="detail" id="tpDetail"></div>
     </div>
     <div class="listview" id="tpList"></div>
+    <p class="small" style="margin-top:10px">說明：以下內容為教育示意，請依官方來源與最新研究校對。</p>
   </section>
 
   <!-- 聯繫我們 -->
@@ -322,7 +317,7 @@
 </footer>
 
 <script>
-/* ===== 公告 ===== */
+/* ===== 最新公告（無縫循環、自動重啟） ===== */
 const NEWS = [
   { title:"10/01 企業內訓開放申請", body:"Q4 ESG/碳盤查與 ISSB/TCFD 模組課程名額有限，歡迎企業預約客製化內訓。", link:"#services" },
   { title:"SBTi 目標規劃諮詢", body:"提供路徑情境、減量專案庫與供應鏈展開建議。", link:"#contact" },
@@ -337,211 +332,169 @@ function renderNews(){
 }
 function updateNews(){ slidesEl.style.transform=`translateX(-${newsIndex*100}%)`; [...dotsEl.children].forEach((d,i)=>d.classList.toggle('active',i===newsIndex)); }
 function nextNews(step=1){ newsIndex=(newsIndex+step+NEWS.length)%NEWS.length; updateNews(); }
-function startAutoNews(){ stopAutoNews(); newsTimer=setInterval(()=>nextNews(1),5800); }
+function startAutoNews(){ stopAutoNews(); newsTimer=setInterval(()=>nextNews(1), 5200); }
 function stopAutoNews(){ if(newsTimer) clearInterval(newsTimer); newsTimer=null; }
 document.getElementById('prevNews')?.addEventListener('click',()=>{ stopAutoNews(); nextNews(-1); startAutoNews(); });
 document.getElementById('nextNews')?.addEventListener('click',()=>{ stopAutoNews(); nextNews(1);  startAutoNews(); });
-document.getElementById('toggleAuto')?.addEventListener('click',e=>{ if(newsTimer){ stopAutoNews(); e.currentTarget.setAttribute('aria-pressed','false'); } else { startAutoNews(); e.currentTarget.setAttribute('aria-pressed','true'); }});
 dotsEl.addEventListener('click',e=>{ const i=e.target?.dataset?.dot; if(i==null) return; stopAutoNews(); newsIndex=Number(i); updateNews(); startAutoNews(); });
 
-/* ===== 內容（台灣時程 + 升溫影響，細化） ===== */
+/* ===== 台灣 2023–2029（細化；請依官方公告更新） ===== */
 const TW_TIMELINE = [
   { year:2023, tag:"路徑發布/制度準備",
     points:[
-      "建立董事會監督與高階管理責任（永續委員會/職掌）與內部匯報機制",
-      "完成重要性分析方法與利害關係人盤點（雙重重要性概念導入）",
-      "範疇 1&2 GHG 基準年與流程布建；盤點範疇 3 重大類別與資料來源",
-      "建立揭露章節架構（治理/策略/風險管理/指標與目標），整理現有證據鏈",
-      "啟動跨部門教育訓練與資料品質控管（版本/取數/保存年限）"
+      "主管機關發布「對齊 IFRS/ISSB 永續揭露標準」路徑，宣示自 2026 年度起導入 S1/S2。",
+      "公司治理：董事會監督與高階管理責任明確、設置永續治理架構與匯報頻率。",
+      "方法論：建立重要性分析與利害關係人溝通（雙重重要性）、揭露章節（治理/策略/風險管理/指標與目標）。",
+      "GHG：確立基準年、範疇 1&2 盤查流程；盤點範疇 3 重大類別與可得資料來源。"
     ],
-    scopeNote:"依主管機關路徑說明，為後續全面編製與查驗鋪路"
+    scopeNote:"為全面編製與查驗鋪路"
   },
-  { year:2024, tag:"流程擴充/試辦查核",
+  { year:2024, tag:"全面備戰/流程擴充",
     points:[
-      "供應鏈資料蒐集試辦（關鍵供應商名單、填報規格、異常回補流程）",
-      "情境分析/壓力測試方法選擇（短中長期、溫升路徑、邊界假設）",
-      "建立風險機會登錄表（暴露度/敏感度/調適能力 → 風險等級）",
-      "盤點外部確信需求與範圍，完成初版稽核軌跡（抽樣/留存）",
-      "資訊系統與資料治理（欄位定義、權限、追蹤碼、異動紀錄）"
+      "公告所有上市櫃公司自 2025 年起均須編製 2024 年度永續報告，並於 2025/8/31 前完成申報（首次全覆蓋）。",
+      "供應鏈：關鍵供應商名單、填報規格與檢核流程試辦；建立資料留痕與異常回補機制。",
+      "查驗預備：界定可能確信範圍（優先指標）與證據鏈，完成抽樣演練。"
     ],
-    scopeNote:"為 2025 起全面編製與可能的第三方確信作準備"
+    scopeNote:"全體上市櫃首次全面申報永續報告"
   },
   { year:2025, tag:"全面編製（申報年度）",
     points:[
-      "全體上市櫃公司開始常態編製永續報告（依市場規範於申報期限內送交）",
-      "揭露對齊 ISSB/TCFD：治理、策略、風險管理、指標與目標（含轉型計畫）",
-      "GHG：維持範疇 1&2 準確性與一致性，擴大範疇 3 重大類別的量化",
-      "財務關聯性判斷與合併邊界一致；跨表格/附註的一致性檢核",
-      "視情形啟動有限確信（limited assurance）之查驗介接"
+      "全體上市櫃公司常態編製永續報告（涵蓋治理/策略/風險管理/指標目標；送交依市場規範）。",
+      "GHG：維持範疇 1&2 品質；逐步擴大範疇 3 量化，建立與財報一致之合併邊界。",
+      "評估有限確信（Limited assurance）之對接與時程。"
     ],
-    scopeNote:"請依實際公告之送交格式與時程辦理"
+    scopeNote:"非財務資訊內控與一致性強化"
   },
-  { year:2026, tag:"ISSB 導入/邊界強化",
+  { year:2026, tag:"ISSB S1/S2 第一階段",
     points:[
-      "逐步對齊 IFRS S1（一般揭露）與 S2（氣候揭露）之具體欄位與詞彙",
-      "擴大範疇 3 覆蓋率（上/下游重要類別），建置供應商參與機制",
-      "提升跨期可比性（基準年調整規則、重述原則）與重大性門檻說明",
-      "將情境分析結果串接至資本配置與投資決策（CapEx/OpEx）",
-      "建置內部碳定價試行與減量專案績效追蹤"
+      "S1/S2 導入（第一階段）：實收資本額 ≥ 新台幣 100 億之上市櫃公司，對 2026 年度資訊於 2027 年揭露。",
+      "年報中設置獨立章節呈現「永續相關財務資訊」。",
+      "擴充情境分析與轉型計畫，建立跨表/附註一致性檢核。"
     ],
-    scopeNote:"依主管機關採用節奏調整"
+    scopeNote:"依實收資本額分階段導入"
   },
-  { year:2027, tag:"查驗深化/績效連動",
+  { year:2027, tag:"ISSB S1/S2 第二階段",
     points:[
-      "擴大外部確信範圍（優先指標/重要揭露項目），提升證據充足性",
-      "跨部門 KPI 與獎懲連動，納入供應鏈管理與採購條款",
-      "氣候風險映射到營運/財務（信用、保險、融資條件）並揭露方法",
-      "建置產品/服務碳足跡（選定品類）與標章/規範對接",
-      "完善內控：取數自動化、權限與稽核軌跡、差異分析流程"
+      "S1/S2 導入（第二階段）：實收資本額 ≥ 新台幣 50 億且 < 100 億之上市櫃公司，對 2027 年度資訊於 2028 年揭露。",
+      "範疇 3 覆蓋率提升、供應鏈展開率增加；情境/壓力測試納入投資與資本配置。"
     ],
-    scopeNote:"逐年提高資訊品質與可比較性"
+    scopeNote:"對齊國際用語與計量方法"
   },
-  { year:2028, tag:"數據治理/供應鏈整合",
+  { year:2028, tag:"ISSB S1/S2 第三階段",
     points:[
-      "API 串接自動蒐集、多實體/多區域一致性治理與版本控管",
-      "擴大量化覆蓋（能源/水/廢棄物/運輸/投資組合）與差異解釋",
-      "強化供應鏈查證協作與抽查機制；提升展開率與回覆品質",
-      "評估合理確信（reasonable assurance）之可行性與成本效益",
-      "建立對外溝通節奏（投資人簡報/網站儀表板/資料字典）"
+      "S1/S2 導入（第三階段）：其餘所有上市櫃公司，對 2028 年度資訊於 2029 年揭露。",
+      "數據治理：API/自動化取數、版本控管、權限與稽核軌跡；評估合理確信（Reasonable assurance）可行性。"
     ],
-    scopeNote:"以數據化提升效率與可靠度"
+    scopeNote:"全體上市櫃完成 S1/S2 導入"
   },
-  { year:2029, tag:"驗證到位/常態運行",
+  { year:2029, tag:"GHG 驗證到位/常態運行",
     points:[
-      "完成溫室氣體第三方驗證（至少涵蓋範疇 1&2；視情況擴大範疇 3）",
-      "合併財報一致邊界；於永續報告揭露查驗結果與改善計畫",
-      "策略/目標/績效對齊資本市場溝通，形成年度循環改善",
-      "供應鏈溝通常態化（教育、指引、工具與稽核）",
-      "內外部保證協同（財務/非財務共治），確保決策有用性"
+      "全體上市櫃完成溫室氣體第三方驗證（至少範疇 1&2；視情況擴大範疇 3），並揭露驗證結論。",
+      "與資本市場溝通常態化（投資人簡報/網站儀表板/資料字典）；年度循環改善。"
     ],
-    scopeNote:"治理與執行常態化"
+    scopeNote:"揭露品質提升與市場可比性增強"
   },
 ];
 
+/* ===== 升溫里程碑與影響（obs/proj，細化） ===== */
 const TEMP_TIMELINE = [
-  { temp:"+0.5°", label:"早期變化（歷史 obs）", type:"obs",
+  { temp:"+0.5°", label:"早期變化（obs）", type:"obs",
     items:[
-      "極端高溫天數與平均最高溫出現上升趨勢，熱浪端點更尖",
-      "雪線與冰川後退、北極海冰季長縮短；春化提前",
-      "短延時強降雨事件在部分區域增多，逕流與淹水風險上揚",
-      "農作物物候變化（開花/成熟期提前），需調整耕作曆",
-      "海洋熱浪頻率增，局部珊瑚白化事件開始累積"
+      "極端高溫天數與夜間不舒適度上升的早期跡象；城市熱島效應顯化。",
+      "雪線/冰川退縮；北極海冰季長縮短，春化提前。",
+      "短延時強降雨在部分區域增多，逕流與淹水風險上揚；海洋熱浪與局部珊瑚白化開始累積。"
     ]},
   { temp:"+0.8°", label:"極端天氣變率上升（obs）", type:"obs",
     items:[
-      "暴雨/乾旱年際波動加劇；地中海型、加州、澳洲等地乾燥化與野火季延長",
-      "城市化疊加極端降雨，內澇與關鍵設施中斷風險升高",
-      "健康影響：熱相關疾病與死亡率在脆弱族群上升",
-      "保險索賠頻率/嚴重度攀升，部分地區可保性受壓",
-      "水文與生態系統壓力增加（溫度/溶氧/入侵種動態改變）"
+      "暴雨與乾旱的年際波動加劇；地中海型、加州、澳洲等地乾燥化與野火季延長。",
+      "公共衛生：熱相關疾病在脆弱族群上升；保險索賠頻率/嚴重度攀升。",
+      "水文/生態壓力上升（溫度、溶氧、入侵種動態變化）。"
     ]},
   { temp:"+1.0°", label:"城市/健康衝擊顯著（obs）", type:"obs",
     items:[
-      "熱浪頻率、強度、持續時間顯著增加；夜間降溫不足",
-      "北極海冰厚度與面積持續下降，山區冰川消融加快",
-      "電力系統尖峰負載攀升，建築降溫需求與能耗上揚",
-      "部分沿海區域潮位極端值更常見，鹽水入侵與地層下陷風險升",
-      "交通/物流在極端事件下受阻，中斷成本提高"
+      "熱浪頻率、強度、持續時間顯著增加；夜間降溫不足影響睡眠與健康。",
+      "北極海冰厚度與面積持續下降；山區冰川消融加快。",
+      "電力尖峰負載攀升，建築降溫需求增加；沿海極端潮位更常見。"
     ]},
   { temp:"+1.2°", label:"當前區間（近年 obs）", type:"obs",
     items:[
-      "多項全球氣候指標創高：海溫、冰量、溫室氣體濃度與年平均溫偏高",
-      "沿海洪氾與風暴潮脆弱性增；保險與再保需求與費率上調",
-      "多流域呈現極端濕/極端旱的空間並存，水資源調度壓力加劇",
-      "極端高溫對戶外勞動生產力與公共健康的負荷增加",
-      "對糧食與能源市場的連鎖波動更明顯（價格/供應期）"
+      "2024 為觀測史最暖年，年均約 +1.55°C（1850–1900 基準）。",
+      "多流域呈現極端濕/極端旱並存；保險與再保風險費率上調。",
+      "糧食與能源市場的氣候連鎖波動更顯著（價格/供應期）。"
     ]},
   { temp:"+1.5°", label:"關鍵門檻（proj）", type:"proj",
     items:[
-      "極端熱浪與危險濕球溫度事件顯著增加；城市需強化降溫與綠基盤",
-      "強降雨強度與短時暴雨頻率上升，雨洪設計標準需提升",
-      "低緯度與珊瑚礁生態系受損風險大幅提高，生物多樣性喪失擴大",
-      "海平面上升疊加風暴潮，沿海資產與基礎設施投資風險升",
-      "食物/水/健康/能源與供應鏈中斷風險同時上升，韌性投資成為必要"
+      "極端熱浪與危險濕球溫度事件顯著增加；城市需強化遮陰降溫與綠基盤。",
+      "強降雨強度與短時暴雨頻率上升，雨洪設計標準需提升；複合型極端事件更常見。",
+      "低緯度/珊瑚礁生態系退化風險大幅提高，生物多樣性喪失擴大。"
     ]},
   { temp:"+2.0°", label:"高風險情境（proj）", type:"proj",
     items:[
-      "海平面上升更顯著，極端海況與降雨複合事件更常見（compound risk）",
-      "部分地區作物適生帶北移/高遷，糧食/水資源壓力與價格波動加劇",
-      "熱相關死亡與勞動損失顯著增加；高溫職安與社會平等議題拉大",
-      "保險可保性持續下降，需公共-私部門分攤與預防性投資",
-      "跨區域移民與供應鏈重新佈局，帶來營運與治理挑戰"
+      "海平面上升疊加風暴潮與極端降雨，沿海資產受損風險大增；局部地區可保性下降。",
+      "作物適生帶北移/高遷，糧食/水資源壓力與價格波動加劇；跨區移民與供應鏈重佈局風險升。",
+      "健康與勞動損失顯著增加，社會韌性與基礎設施投資需求快速上揚。"
     ]},
 ];
 
-/* ===== 2D Slider（慢速、更美觀、進度條＋Rail 快速導覽） ===== */
+/* ===== 2D Slider（統一速度；進度條只在停留時間運作 ⇒ 兩條一致） ===== */
 class Slider2D{
   constructor(opts){
     Object.assign(this, opts); // trackEl, dotsEl, detailEl, progressEl, railEl, data, mapCard, mapDetail, labelFn
-    this.index = 1;                // 中間起點（前後各 clone）
-    this.holdMs = 2400;            // 停留時間（可調）
-    this.durationMs = 900;         // 轉場時間（已放慢）
-    this.timer = null; this.isAuto = true;
+    this.index = 1;      // 以中間起點（前後各有 clone）
+    this.holdMs = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--tl-hold'));
+    this.durMs  = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--tl-dur'));
+    this.holdTimer = null; this.raf = null;
     this.render(); this.bind();
-    this.goTo(this.index, true);
-    this.scheduleNext(); this.drawProgress(0);
+    this.jumpTo(this.index);       // 直接定位
+    this.updateDetail(); this.highlight();
+    this.beginHold();              // 初始即啟動停留計時與進度
   }
   render(){
     const first = this.data[0], last = this.data[this.data.length-1];
     const cards = [last, ...this.data, first];
     this.trackEl.innerHTML = cards.map(this.mapCard).join('');
-    if(this.dotsEl){ this.dotsEl.innerHTML = this.data.map((_,i)=>`<button class="tl-dot" data-i="${i}"></button>`).join(''); }
-    if(this.railEl){ this.railEl.innerHTML = this.data.map((d,i)=>`<button data-i="${i}">${this.labelFn(d)}</button>`).join(''); }
+    if(this.dotsEl) this.dotsEl.innerHTML = this.data.map((_,i)=>`<button class="tl-dot" data-i="${i}"></button>`).join('');
+    if(this.railEl) this.railEl.innerHTML = this.data.map((d,i)=>`<button data-i="${i}">${this.labelFn(d)}</button>`).join('');
+    this.trackEl.style.transition = `transform var(--tl-dur) cubic-bezier(.2,.8,.2,1)`;
   }
   bind(){
-    this.trackEl.style.transition = `transform ${this.durationMs}ms cubic-bezier(.2,.8,.2,1)`;
     this.trackEl.addEventListener('transitionend', ()=>{
       const n = this.data.length;
-      if(this.index === 0){ this.index = n; this.jumpTo(this.index); }
-      else if(this.index === n+1){ this.index = 1; this.jumpTo(this.index); }
-      this.updateDetail(); this.highlight(); if(this.isAuto) this.scheduleNext();
+      if(this.index === 0){ this.jumpTo(n); }
+      else if(this.index === n+1){ this.jumpTo(1); }
+      this.updateDetail(); this.highlight();
+      this.beginHold();   // 轉場結束後才開始進度
     });
-    this.dotsEl?.addEventListener('click', (e)=>{
-      const i = e.target?.dataset?.i; if(i==null) return; this.stopAuto(); this.goTo(Number(i)+1);
-    });
-    this.railEl?.addEventListener('click', (e)=>{
-      const btn = e.target.closest('button'); if(!btn) return;
-      this.stopAuto(); this.goTo(Number(btn.dataset.i)+1);
-    });
-    this.prevBtn?.addEventListener('click', ()=>{ this.stopAuto(); this.prev(); });
-    this.nextBtn?.addEventListener('click', ()=>{ this.stopAuto(); this.next(); });
-    this.viewportEl?.addEventListener('mouseenter', ()=>this.stopAuto());
-    this.viewportEl?.addEventListener('mouseleave', ()=>this.startAuto());
-    addEventListener('keydown',e=>{
-      if(e.key==='ArrowLeft'){ this.stopAuto(); this.prev(); }
-      if(e.key==='ArrowRight'){ this.stopAuto(); this.next(); }
-    });
+    // dots / rail
+    this.dotsEl?.addEventListener('click', (e)=>{ const i=e.target?.dataset?.i; if(i==null) return; this.clearHold(); this.goTo(Number(i)+1); });
+    this.railEl?.addEventListener('click', (e)=>{ const b=e.target.closest('button'); if(!b) return; this.clearHold(); this.goTo(Number(b.dataset.i)+1); });
+    // prev / next
+    this.prevBtn?.addEventListener('click', ()=>{ this.clearHold(); this.prev(); });
+    this.nextBtn?.addEventListener('click', ()=>{ this.clearHold(); this.next(); });
+    // hover 暫停 / 離開恢復
+    this.viewportEl?.addEventListener('mouseenter', ()=>this.clearHold());
+    this.viewportEl?.addEventListener('mouseleave', ()=>this.beginHold());
   }
   transform(){ this.trackEl.style.transform = `translateX(-${this.index * 100}%)`; }
-  goTo(i, instant=false){
-    this.index=i;
-    if(instant){ const t=this.trackEl.style.transition; this.trackEl.style.transition='none'; this.transform(); this.trackEl.offsetHeight; this.trackEl.style.transition=t; this.updateDetail(); this.highlight(); }
-    else{ this.transform(); }
-    this.animateProgress();
-  }
+  goTo(i){ this.clearHold(); this.index=i; this.progress(0); this.transform(); }
   jumpTo(i){ const t=this.trackEl.style.transition; this.trackEl.style.transition='none'; this.index=i; this.transform(); this.trackEl.offsetHeight; this.trackEl.style.transition=t; }
   next(){ this.goTo(this.index+1); }
   prev(){ this.goTo(this.index-1); }
-  scheduleNext(){ clearTimeout(this.timer); this.timer = setTimeout(()=> this.next(), this.holdMs); this.animateProgress(); }
-  startAuto(){ if(this.isAuto) { this.scheduleNext(); } else { this.isAuto=true; this.scheduleNext(); } }
-  stopAuto(){ this.isAuto=false; clearTimeout(this.timer); this.timer=null; this.drawProgress(0); }
-  highlight(){
-    if(this.dotsEl){ const n=this.data.length; const ai=(this.index-1+n)%n; [...this.dotsEl.children].forEach((d,i)=>d.classList.toggle('active', i===ai)); }
-    if(this.railEl){ const n=this.data.length; const ai=(this.index-1+n)%n; [...this.railEl.children].forEach((b,i)=>b.classList.toggle('active', i===ai)); }
+  beginHold(){
+    this.clearHold();
+    const start = performance.now(), dur=this.holdMs;
+    const step = (now)=>{ const t = Math.min(1,(now-start)/dur); this.progress(t); if(t<1) this.raf=requestAnimationFrame(step); else this.next(); };
+    this.raf=requestAnimationFrame(step);
+    this.holdTimer = setTimeout(()=>{}, dur); // 佔位；由 RAF 觸發 next
   }
-  updateDetail(){ if(!this.detailEl) return; const n=this.data.length; const ai=(this.index-1+n)%n; const d=this.data[ai]; this.detailEl.innerHTML = this.mapDetail(d); }
-  animateProgress(){
-    if(!this.progressEl) return;
-    this.drawProgress(0);
-    const start = performance.now(), dur = this.holdMs;
-    const step = (now)=>{
-      const t = Math.min(1, (now - start)/dur);
-      this.drawProgress(t);
-      if (t < 1 && this.isAuto && this.timer) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
+  clearHold(){ if(this.holdTimer) clearTimeout(this.holdTimer); this.holdTimer=null; if(this.raf) cancelAnimationFrame(this.raf); this.raf=null; this.progress(0); }
+  progress(t){ if(this.progressEl) this.progressEl.style.transform = `scaleX(${t})`; }
+  highlight(){ // dots & rail
+    const n=this.data.length, ai=(this.index-1+n)%n;
+    this.dotsEl && [...this.dotsEl.children].forEach((d,i)=>d.classList.toggle('active', i===ai));
+    this.railEl && [...this.railEl.children].forEach((b,i)=>b.classList.toggle('active', i===ai));
   }
-  drawProgress(t){ if(this.progressEl){ this.progressEl.style.transform = `scaleX(${t})`; } }
+  updateDetail(){ const n=this.data.length, ai=(this.index-1+n)%n; const d=this.data[ai]; if(this.detailEl) this.detailEl.innerHTML=this.mapDetail(d); }
 }
 
 /* === 卡片模板 === */
@@ -560,7 +513,7 @@ function cardTplTP(d){
   return `<article class="card2d">
     <div class="badge-temp">🌡 ${d.temp}</div>
     <div class="kicker">${d.type==='proj'?'預期影響｜':'觀測影響｜'}${d.label}</div>
-    <div class="title">${d.type==='proj' ? '中長期風險與適應重點' : '近年觀測與管理應對'}</div>
+    <div class="title">${d.type==='proj' ? '中長期風險與適應重點' : '近期觀測與管理應對'}</div>
     <div class="body"><ul>${d.items.map(p=>`<li>${p}</li>`).join('')}</ul></div>
   </article>`;
 }
@@ -568,7 +521,7 @@ function detailTplTP(d){
   return `<h3>${d.temp}</h3><div class="tag">${d.type==='proj'?'預期影響｜':'觀測影響｜'}${d.label}</div><ul>${d.items.map(p=>`<li>${p}</li>`).join('')}</ul>`;
 }
 
-/* === 建立兩個 Slider === */
+/* === 建立兩個 Slider（統一 hold/dur，進度條一致） === */
 const sliderTW = new Slider2D({
   trackEl: document.getElementById('trackTW'),
   viewportEl: document.querySelector('#twWrap .viewport'),
@@ -598,7 +551,7 @@ const sliderTP = new Slider2D({
   labelFn: d => d.temp
 });
 
-/* 列表檢視 */
+/* 列表檢視（兩軌一致） */
 function renderList(container, data, titleKey, tagFn, listKey, noteKey){
   container.innerHTML = data.map(d=>`<details><summary>${d[titleKey]} — <span class="small">${typeof tagFn==='function'?tagFn(d):d[tagFn]||''}</span></summary><ul>${d[listKey].map(li=>`<li>${li}</li>`).join('')}</ul>${noteKey&&d[noteKey]?`<div class="small" style="margin-top:8px">${d[noteKey]}</div>`:''}</details>`).join('');
 }
@@ -613,14 +566,7 @@ function setToggle(is2D, wrapEl, listEl, btn2d, btnList){
   listEl.classList.toggle('active',!is2D);
   btn2d.setAttribute('aria-pressed',String(is2D));
   btnList.setAttribute('aria-pressed',String(!is2D));
-  if(is2D){
-    if(wrapEl.id==='twWrap') sliderTW.startAuto(); else sliderTP.startAuto();
-  }
 }
-tw2dBtn.addEventListener('click', ()=> setToggle(true,  twWrap, twList, tw2dBtn, twListBtn));
-twListBtn.addEventListener('click',()=> { sliderTW.stopAuto(); setToggle(false, twWrap, twList, tw2dBtn, twListBtn); });
-tp2dBtn.addEventListener('click', ()=> setToggle(true,  tpWrap, tpList, tp2dBtn, tpListBtn));
-tpListBtn.addEventListener('click',()=> { sliderTP.stopAuto(); setToggle(false, tpWrap, tpList, tp2dBtn, tpListBtn); });
 
 /* 聯繫我們 */
 function sendEmail(e){
