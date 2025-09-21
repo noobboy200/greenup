@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>綠色影響力｜Green Impact</title>
+<meta name="description" content="綠色影響力：專業教育訓練、整合性ESG解決方案、綠領人才培訓與媒合。" />
+<meta name="color-scheme" content="light dark">
+<style>
+  :root{
+    --bg: #0b1020;
+    --card:#121a31;          /* 實底卡片 */
+    --muted:#9fb0d6;
+    --text:#e9efff;
+    --brand:#5ee1a1;
+    --brand-2:#37b989;
+    --line:#26304f;
+    --ring:#79f6c1;
+    --accent:#8be3ff;
+    --warn:#ffd66b;
+    --danger:#ff8e8e;
+    --shadow: 0 12px 36px rgba(0,0,0,.35);
+    --radius: 16px;
+    --radius-lg: 22px;
+    --grid-c:#18305055;
+  }
+  @media (prefers-color-scheme: light) {
+    :root { --bg:#f6f7fb; --card:#ffffff; --text:#0b1020; --muted:#5a6684; --line:#e6e9f2; --shadow: 0 10px 28px rgba(0,10,30,.10); --grid-c:#cfe2ff66;}
+  }
+  /* 背景：柔和格線＋淡漸層，降低干擾 */
+  html,body{
+    margin:0;padding:0;
+    background:
+      linear-gradient(180deg, rgba(94,225,161,.05), transparent 30%),
+      linear-gradient(180deg, transparent 70%, rgba(139,227,255,.05)),
+      var(--bg);
+    color:var(--text);
+    font:16px/1.6 ui-sans-serif, system-ui, -apple-system, "Noto Sans TC", Segoe UI, Roboto, "PingFang TC", "Heiti TC", "Microsoft JhengHei", Arial, sans-serif;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+    background:
+      linear-gradient(transparent 23px, var(--grid-c) 24px),
+      linear-gradient(90deg, transparent 23px, var(--grid-c) 24px);
+    background-size:24px 24px;
+    mask: radial-gradient(900px 560px at 50% 0%, #000 0%, transparent 70%);
+  }
+
+  .container{max-width:1140px;margin:0 auto;padding:24px;}
+  .hero{position:relative;padding:72px 0 44px;}
+  .badge{display:inline-block;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--muted);}
+  h1{
+    font-size:44px;line-height:1.12;margin:14px 0 12px;letter-spacing:.4px;
+    background: linear-gradient(90deg, #cfe9ff, #5ee1a1 60%, #8be3ff);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .lead{max-width:760px;color:var(--muted);font-size:18px}
+  .cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+  .btn{
+    appearance:none;border:none;border-radius:999px;padding:12px 18px;font-weight:700;cursor:pointer;
+    box-shadow:var(--shadow);transition:.25s transform, .25s box-shadow, .25s background, .25s border-color;
+  }
+  .btn-primary{background:linear-gradient(90deg,var(--brand),var(--brand-2)); color:#0b1020;}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 16px 40px rgba(55,185,137,.38);}
+  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+  .btn-ghost:hover{background:rgba(255,255,255,.04)}
+  .section{margin:60px 0}
+  .section h2{font-size:28px;margin:0 0 8px;letter-spacing:.3px}
+  .section p.sub{margin:0 0 18px;color:var(--muted)}
+
+  /* 公告 */
+  .announce{display:grid;grid-template-columns:1fr;gap:12px}
+  .ticker{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--card);
+  }
+  .slides{display:flex;transition:transform .6s ease}
+  .slide{min-width:100%;padding:16px;background:var(--card)}
+  .slide strong{color:var(--brand)}
+  .ticker-controls{display:flex;justify-content:space-between;gap:10px;padding:8px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--line);cursor:pointer;border:none}
+  .dot.active{background:linear-gradient(90deg,var(--brand),var(--accent))}
+  .ctrl{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:10px;padding:6px 10px;cursor:pointer}
+
+  /* 服務卡 */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{
+    background:var(--card);
+    border:1px solid var(--line); border-radius:var(--radius); padding:18px;
+    box-shadow:var(--shadow); position:relative; overflow:hidden;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .card:hover{ transform: translateY(-4px); border-color: #2d8e78; box-shadow: 0 18px 48px rgba(94,225,161,.25);}
+  .card h3{margin:8px 0 6px;font-size:18px}
+  .card p{margin:0;color:var(--muted)}
+  .chip{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+  .chip i{width:10px;height:10px;border-radius:50%;}
+  .chip .g{background:var(--brand)}
+  .chip .b{background:var(--accent)}
+  .chip .y{background:var(--warn)}
+
+  /* 3D 轉盤（更易讀） */
+  .timeline{position:relative;border:1px solid var(--line);border-radius:var(--radius-lg);padding:16px;background:var(--card);}
+  .timeline-header{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 0 8px}
+  .view-toggle{display:flex;gap:8px}
+  .pill{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:999px;padding:6px 10px;cursor:pointer;font-size:13px}
+  .pill[aria-pressed="true"]{background:linear-gradient(90deg,var(--brand),var(--accent)); color:#0b1020; border-color:transparent}
+
+  .timeline-3d .viewport{
+    position:relative; height: 320px; perspective: 1100px; overflow: visible;
+    border-radius: calc(var(--radius-lg) - 6px);
+    background: linear-gradient(180deg, rgba(139,227,255,.06), transparent 45%);
+  }
+  .timeline-3d .stage{
+    --rot: 0deg;
+    --radius: 420px;    /* JS 覆蓋 */
+    --step: 45deg;      /* JS 覆蓋 */
+    position:absolute; inset:0;
+    transform-style: preserve-3d;
+    transform: translateZ(-10px) rotateY(var(--rot));
+    transition: transform 700ms cubic-bezier(.2,.7,.2,1);
+    cursor: grab;
+  }
+  .timeline-3d.dragging .stage{ transition: none; cursor: grabbing; }
+  .timeline-3d .node3d{
+    position:absolute; left:50%; top:50%;
+    width: 300px; max-width: 86vw;
+    transform-style: preserve-3d;
+    transform:
+      rotateY(calc(var(--i) * var(--step)))
+      translateZ(var(--radius))
+      translate(-50%, -50%);
+    background: var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:14px;
+    box-shadow: var(--shadow);
+    backface-visibility: hidden;
+    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease, opacity .2s ease;
+    opacity:.6;
+  }
+  .timeline-3d .node3d.active{
+    border-color:#2d8e78;
+    box-shadow: 0 18px 48px rgba(94,225,161,.28);
+    transform:
+      rotateY(calc(var(--i) * var(--step)))
+      translateZ(calc(var(--radius) + 22px))
+      translate(-50%, -50%) scale(1.04);
+    opacity:1;
+  }
+  .node3d .year, .node3d .temp {font-weight:800;font-size:18px}
+  .node3d .tag{display:inline-block;margin-top:6px;font-size:12px;color:var(--muted)}
+  .node3d .body{margin-top:10px;color:var(--muted);font-size:14px}
+
+  /* 詳情面板（正面卡完整內容） */
+  .detail{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+  .detail h3{margin:0 0 6px;font-size:18px}
+  .detail .tag{font-size:12px;color:var(--muted)}
+  .detail ul{margin:8px 0 0 18px;padding:0}
+  .detail .note{margin-top:8px;color:var(--muted);font-size:13px}
+
+  /* 列表檢視 */
+  .listview{display:none;margin-top:8px}
+  .listview.active{display:block}
+  .listview details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0}
+  .listview summary{cursor:pointer;font-weight:700}
+  .listview ul{margin:8px 0 0 18px;padding:0;color:var(--muted)}
+  .tl-actions{display:flex;justify-content:space-between; gap:10px;margin:10px 0 0}
+  .tl-btn{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:12px;padding:8px 12px;cursor:pointer}
+
+  /* Contact */
+  .contact{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+  .form{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+  label{display:block;margin:10px 0 6px;font-weight:600}
+  input,textarea{width:100%;padding:12px 12px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--text)}
+  textarea{min-height:120px;resize:vertical}
+  .small{font-size:12px;color:var(--muted)}
+  .aside{border:1px solid var(--line);border-radius:var(--radius);padding:16px;background:var(--card)}
+  .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New",monospace; font-size:13px}
+  footer{border-top:1px solid var(--line);margin-top:44px;padding:20px 0;color:var(--muted);font-size:14px}
+
+  /* RWD */
+  @media (max-width: 900px){
+    .grid{grid-template-columns:1fr}
+    .contact{grid-template-columns:1fr}
+    .hero{padding-top:52px}
+    h1{font-size:36px}
+    .timeline-3d .viewport{height: 360px}
+    .timeline-3d .node3d{width: 280px}
+  }
+
+  :focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:10px}
+</style>
+</head>
+<body>
+  <header class="container hero">
+    <span class="badge">Green Impact</span>
+    <h1>綠色影響力</h1>
+    <p class="lead">以資料與行動為本，協助企業快速落地永續策略：<strong>專業教育訓練</strong>、<strong>整合性 ESG 解決方案</strong>、<strong>綠領人才培訓與媒合</strong>。</p>
+    <div class="cta">
+      <a href="#contact" class="btn btn-primary">聯繫我們</a>
+      <a href="#services" class="btn btn-ghost">了解服務</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 最新公告 -->
+    <section class="section" id="news">
+      <h2>最新公告</h2>
+      <p class="sub">支援手動/自動輪播。點選圓點可快速切換。</p>
+      <div class="announce">
+        <div class="ticker" aria-live="polite">
+          <div class="slides" id="newsSlides"></div>
+        </div>
+        <div class="ticker-controls">
+          <div id="newsDots" style="display:flex;gap:6px"></div>
+          <div style="display:flex;gap:8px">
+            <button class="ctrl" id="prevNews" aria-label="上一則">←</button>
+            <button class="ctrl" id="nextNews" aria-label="下一則">→</button>
+            <button class="ctrl" id="toggleAuto" aria-pressed="true" title="自動播放切換">⟳</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 三大服務 -->
+    <section class="section" id="services">
+      <h2>我們的三大服務</h2>
+      <p class="sub">從盤點到落地，以「教育 × 工具 × 人才」一條龍協作。</p>
+      <div class="grid">
+        <article class="card">
+          <div class="chip"><i class="g"></i> 專業教育訓練</div>
+          <h3>內訓/公開班｜主管到全員</h3>
+          <p>ESG/永續素養、TCFD/ISSB 溝通、溫室氣體盤查與查驗、減碳專案設計、供應鏈溝通與利害關係人管理。</p>
+        </article>
+        <article class="card">
+          <div class="chip"><i class="b"></i> 整合性 ESG 解決方案</div>
+          <h3>從盤點到揭露與減量</h3>
+          <p>重要性分析、SBTi 目標路徑、GHG 盤查(Sc.1~3)、TCFD/ISSB/GRI 揭露框架、數據治理與數位儀表板。</p>
+        </article>
+        <article class="card">
+          <div class="chip"><i class="y"></i> 綠領人才培訓與媒合</div>
+          <h3>技能養成與專案媒合</h3>
+          <p>碳盤查實務班、專案實習、職缺媒合與內部轉職路徑，協助企業建立永續內功與外部人才池。</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 時間軸 1：台灣 2023–2029 永續報告書進程（3D＋詳情面板＋列表切換） -->
+    <section class="section" id="tw-timeline">
+      <div class="timeline-header">
+        <h2 style="margin:0">台灣 2023–2029 永續報告書進程</h2>
+        <div class="view-toggle">
+          <button class="pill" id="tw3dBtn" aria-pressed="true">3D</button>
+          <button class="pill" id="twListBtn" aria-pressed="false">列表</button>
+        </div>
+      </div>
+      <p class="sub">以下內容為<strong>示例</strong>與常見實務步驟，請依主管機關最新公告與產業別自行更新。</p>
+
+      <div class="timeline timeline-3d" id="twWrap" aria-roledescription="carousel">
+        <div class="viewport">
+          <div class="stage" id="stageTW" aria-live="polite"></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" data-rotate="tw" data-dir="-1" aria-label="上一張">← 往前</button>
+          <button class="tl-btn" data-rotate="tw" data-dir="1" aria-label="下一張">往後 →</button>
+        </div>
+        <div class="detail" id="twDetail"></div>
+      </div>
+      <div class="listview" id="twList"></div>
+    </section>
+
+    <!-- 時間軸 2：升溫進度與影響（3D＋詳情面板＋列表切換） -->
+    <section class="section" id="temp-timeline">
+      <div class="timeline-header">
+        <h2 style="margin:0">全球升溫進度與影響</h2>
+        <div class="view-toggle">
+          <button class="pill" id="tp3dBtn" aria-pressed="true">3D</button>
+          <button class="pill" id="tpListBtn" aria-pressed="false">列表</button>
+        </div>
+      </div>
+      <p class="sub">以基準年（工業化前）為起點，標示 +0.5°、+0.8°、+1.0°、+1.2°、+1.5°、+2.0° 的<em>觀測/預期</em>影響。</p>
+
+      <div class="timeline timeline-3d" id="tpWrap" aria-roledescription="carousel">
+        <div class="viewport">
+          <div class="stage" id="stageTemp" aria-live="polite"></div>
+        </div>
+        <div class="tl-actions">
+          <button class="tl-btn" data-rotate="temp" data-dir="-1" aria-label="上一張">← 往前</button>
+          <button class="tl-btn" data-rotate="temp" data-dir="1" aria-label="下一張">往後 →</button>
+        </div>
+        <div class="detail" id="tpDetail"></div>
+      </div>
+      <div class="listview" id="tpList"></div>
+
+      <p class="small" style="margin-top:10px">說明：上述為教育示意與常見研究結論的歸納，實際風險將依地區/情境而異，建議搭配貴公司風險地圖與在地資料進一步評估。</p>
+    </section>
+
+    <!-- 聯繫我們 -->
+    <section class="section" id="contact">
+      <h2>聯繫我們</h2>
+      <p class="sub">歡迎提供需求，我們將於 2 個工作日內回覆。</p>
+      <div class="contact">
+        <form class="form" onsubmit="sendEmail(event)">
+          <label for="name">您的姓名</label>
+          <input id="name" name="name" placeholder="王小綠" required>
+          <label for="company">公司/單位</label>
+          <input id="company" name="company" placeholder="綠色股份有限公司">
+          <label for="email">Email（聯絡用）</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required>
+          <label for="message">您的需求或問題</label>
+          <textarea id="message" name="message" placeholder="想諮詢教育內訓與 SBTi 目標設定..." required></textarea>
+          <div style="display:flex;gap:10px;align-items:center;margin-top:10px">
+            <button class="btn btn-primary" type="submit">用 Email 打開草稿</button>
+            <button class="btn btn-ghost" type="button" onclick="copyForm()">複製填寫內容</button>
+          </div>
+          <p class="small">送出後將以 <span class="mono">mailto:</span> 方式開啟您的預設郵件軟體（無伺服器需求）。</p>
+        </form>
+        <aside class="aside">
+          <h3 style="margin:6px 0 8px">聯絡資訊</h3>
+          <p style="margin:0 0 8px">Email：<a href="mailto:hello@greenimpact.example" class="mono">hello@greenimpact.example</a><br>
+          服務時間：週一～週五 09:30–18:00</p>
+          <h3 style="margin:12px 0 8px">常見需求</h3>
+          <ul style="margin:0 0 0 18px;padding:0">
+            <li>上市櫃公司年度永續報告書規劃</li>
+            <li>GHG 盤查（範疇 1/2/3）與外部查驗介接</li>
+            <li>TCFD/ISSB/GRI 揭露內容校對與資料治理</li>
+            <li>內訓課程與綠領人才媒合</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+      <span>© <span id="yearNow"></span> 綠色影響力 Green Impact</span>
+      <a href="#news" class="small">回到上方 ↑</a>
+    </div>
+  </footer>
+
+<script>
+/* ====== 可編輯資料區 ====== */
+const NEWS = [
+  { title: "10/01 企業內訓開放申請", body: "Q4 ESG/碳盤查與 TCFD 模組課程名額有限，歡迎企業預約客製化內訓。", link: "#services" },
+  { title: "SBTi 目標規劃諮詢", body: "提供目標情境路徑、減量專案庫與供應鏈展開建議。", link: "#contact" },
+  { title: "ISSB/GRI 對照表工具", body: "示範資料治理與揭露欄位映射，提升產出效率。", link: "#tw-timeline" },
+];
+
+const TW_TIMELINE = [
+  { year: 2023, tag: "準備/先導", points: ["建立董事會/高階治理與責任分工","盤點重大議題與利害關係人溝通機制","GHG 盤查（範疇1+2）流程上路","彙整各部門數據治理規範"], scopeNote: "示例：大型上市公司與高碳排產業優先啟動盤點/制度建置" },
+  { year: 2024, tag: "擴大實施", points: ["揭露框架對齊（如：ISSB/TCFD/GRI）","設定中長期減碳目標（可參考 SBTi）","供應鏈資料蒐集試辦","部分指標啟動外部查驗（有限確信）"], scopeNote: "示例：特定條件之上市/上櫃/興櫃公司逐步要求揭露" },
+  { year: 2025, tag: "常態化揭露", points: ["完整 TCFD 四構面揭露","範疇3 重要類別初步量化","風險機會情境分析納入決策","外部確信範圍擴大"], scopeNote: "示例：多數上市櫃公司納入年度報告書揭露" },
+  { year: 2026, tag: "供應鏈整合", points: ["供應鏈資料串接與減量專案落地","內部碳定價試行","產品/服務碳足跡擴增"], scopeNote: "示例：上下游資料品質與一致性提升" },
+  { year: 2027, tag: "中期檢核", points: ["目標進度回顧與差距補強","轉型投資與財務影響揭露深化","跨部門績效連動與獎懲機制"], scopeNote: "示例：中期減量績效與治理成熟度檢查" },
+  { year: 2028, tag: "數據深化", points: ["自動化資料蒐集與API串接","供應鏈展開率提升與多區域管理","查驗與數據稽核數位化"], scopeNote: "示例：資料治理與數位保證成熟" },
+  { year: 2029, tag: "全面到位", points: ["揭露常態化且與策略整合","全範疇與供應鏈目標一致化","績效對齊財務與資本市場溝通"], scopeNote: "示例：法規全面到位，治理與執行常態化" },
+];
+
+const TEMP_TIMELINE = [
+  { temp: "+0.5°", label: "早期變化", items: ["極端高溫天數略增、局部熱浪加劇","珊瑚白化事件頻率上升"], type:"obs" },
+  { temp: "+0.8°", label: "極端天氣增多", items: ["暴雨/乾旱事件機率提高","農作產量年際波動增加"], type:"obs" },
+  { temp: "+1.0°", label: "城市衝擊顯著", items: ["北極海冰範圍縮小、熱浪強度上升","公共衛生與室內降溫需求增加"], type:"obs" },
+  { temp: "+1.2°", label: "當前區間", items: ["沿海淹水與基礎設施耐受風險上揚","保險理賠與營運中斷成本攀升"], type:"obs" },
+  { temp: "+1.5°", label: "關鍵門檻", items: ["極端熱浪頻率與強度大幅提升（對勞動/電力尖峰衝擊）","珊瑚礁大規模退化、部分生態服務喪失風險"], type:"proj" },
+  { temp: "+2.0°", label: "高風險情境", items: ["海平面上升與極端降雨/風暴潮風險加劇","農業/水資源壓力與供應鏈中斷風險擴大"], type:"proj" },
+];
+
+/* ====== 公告 ====== */
+const slidesEl = document.getElementById('newsSlides');
+const dotsEl = document.getElementById('newsDots');
+let newsIndex = 0, autoPlay = true, timer = null;
+
+function renderNews(){
+  slidesEl.innerHTML = NEWS.map(n => `
+    <div class="slide">
+      <strong>【${n.title}】</strong>
+      <div style="margin-top:6px">${n.body}</div>
+      <div style="margin-top:8px"><a href="${n.link}" class="small">前往了解 →</a></div>
+    </div>
+  `).join('');
+  dotsEl.innerHTML = NEWS.map((_,i)=>`<button class="dot" aria-label="第 ${i+1} 則" data-dot="${i}"></button>`).join('');
+  updateNews();
+}
+function updateNews(){
+  slidesEl.style.transform = `translateX(-${newsIndex*100}%)`;
+  [...dotsEl.children].forEach((d,i)=>d.classList.toggle('active', i===newsIndex));
+}
+function nextNews(step=1){ newsIndex = (newsIndex + step + NEWS.length) % NEWS.length; updateNews(); }
+function startAuto(){ stopAuto(); timer = setInterval(()=>nextNews(1), 4800); }
+function stopAuto(){ if(timer) clearInterval(timer); timer=null; }
+
+document.getElementById('prevNews')?.addEventListener('click', ()=>{ nextNews(-1); });
+document.getElementById('nextNews')?.addEventListener('click', ()=>{ nextNews(1); });
+document.getElementById('toggleAuto')?.addEventListener('click', (e)=>{
+  autoPlay = !autoPlay; e.currentTarget.setAttribute('aria-pressed', String(autoPlay));
+  autoPlay ? startAuto() : stopAuto();
+});
+dotsEl.addEventListener('click', (e)=>{
+  const i = e.target?.dataset?.dot; if(i==null) return;
+  newsIndex = Number(i); updateNews();
+});
+
+/* ====== 3D 轉盤（拖曳＋慣性＋詳情面板＋列表切換） ====== */
+function nodeHTML({title, tagText, lines, meta, isTemp, i}){
+  return `
+    <div class="node3d" style="--i:${i}" role="group" aria-label="${title}">
+      <div class="${isTemp?'temp':'year'}">${title}</div>
+      <div class="tag">${tagText}</div>
+      <div class="body">
+        <ul style="margin:8px 0 0 18px;padding:0">${lines.map(li=>`<li>${li}</li>`).join('')}</ul>
+        ${meta ? `<div class="small" style="margin-top:10px">${meta}</div>` : ``}
+      </div>
+    </div>
+  `;
+}
+function calcRadius(width, n){
+  const base = Math.max(360, Math.min(520, width*0.52));
+  return base + Math.max(0, (n-6))*10;
+}
+function buildCarousel3D(stageEl, data, mapFn){
+  const n = data.length;
+  const stepDeg = 360 / n;
+  const viewport = stageEl.parentElement;
+  const radius = calcRadius(viewport.clientWidth, n);
+  stageEl.style.setProperty('--radius', radius + 'px');
+  stageEl.style.setProperty('--step', stepDeg + 'deg');
+  stageEl.innerHTML = data.map((d, idx)=> nodeHTML(mapFn(d, idx))).join('');
+  const nodes = [...stageEl.querySelectorAll('.node3d')];
+  return { n, step: stepDeg, rot: 0, vrot: 0, stageEl, nodes, data };
+}
+const stageTW   = document.getElementById('stageTW');
+const stageTemp = document.getElementById('stageTemp');
+
+const carouselTW = buildCarousel3D(stageTW, TW_TIMELINE, (x, idx)=>({
+  title: x.year, tagText: x.tag, lines: x.points, meta: x.scopeNote, isTemp: false, i: idx
+}));
+const carouselTemp = buildCarousel3D(stageTemp, TEMP_TIMELINE, (x, idx)=>({
+  title: x.temp, tagText: (x.type==='proj'?'預期影響｜':'觀測影響｜') + x.label, lines: x.items, meta: null, isTemp: true, i: idx
+}));
+
+const carousels = { tw: carouselTW, temp: carouselTemp };
+
+function setRot(c, deg){
+  c.rot = (deg % 360 + 360) % 360;
+  c.stageEl.style.setProperty('--rot', `-${c.rot}deg`);
+  markActive(c);
+}
+function activeIndex(c){
+  return ((Math.round(c.rot / c.step)) % c.n + c.n) % c.n;
+}
+function markActive(c){
+  const i = activeIndex(c);
+  c.nodes.forEach((el, idx)=> el.classList.toggle('active', idx===i));
+}
+function snapToIndex(c, idx){
+  c.stageEl.style.transition = 'transform 420ms cubic-bezier(.2,.8,.2,1)';
+  setRot(c, idx * c.step);
+}
+function rotate(which, dir=1){
+  const c = carousels[which];
+  c.stageEl.style.transition = '';
+  setRot(c, c.rot + dir * c.step);
+}
+document.querySelectorAll('[data-rotate]').forEach(btn=>{
+  btn.addEventListener('click', ()=> rotate(btn.dataset.rotate, Number(btn.dataset.dir)));
+});
+
+/* 點卡片即聚焦 */
+Object.values(carousels).forEach(c=>{
+  c.nodes.forEach((el, idx)=> el.addEventListener('click', ()=> snapToIndex(c, idx)));
+});
+
+/* 拖曳＋慣性（易控，角度縮小） */
+function enableDrag(wrapper, c){
+  let dragging = false, lastX=0, lastT=0, degPerPx = 0.28, rafId=null;
+
+  function onPointerDown(e){
+    dragging = true;
+    wrapper.classList.add('dragging');
+    c.stageEl.style.transition = 'none';
+    lastX = e.clientX; lastT = performance.now();
+    c.stageEl.setPointerCapture?.(e.pointerId);
+  }
+  function onPointerMove(e){
+    if(!dragging) return;
+    const now = performance.now();
+    const dx = e.clientX - lastX;
+    const dt = now - lastT || 16;
+    const ddeg = dx * degPerPx;
+    setRot(c, c.rot + ddeg);
+    c.vrot = (ddeg / dt) * 16;
+    lastX = e.clientX; lastT = now;
+  }
+  function onPointerUp(e){
+    if(!dragging) return;
+    dragging = false;
+    wrapper.classList.remove('dragging');
+    c.stageEl.releasePointerCapture?.(e.pointerId);
+    inertia();
+  }
+  function inertia(){
+    cancelAnimationFrame(rafId);
+    const friction = 0.92;
+    function step(){
+      if (Math.abs(c.vrot) < 0.02) { c.vrot = 0; snapToIndex(c, activeIndex(c)); return; }
+      setRot(c, c.rot + c.vrot);
+      c.vrot *= friction;
+      rafId = requestAnimationFrame(step);
+    }
+    step();
+  }
+
+  c.stageEl.addEventListener('pointerdown', onPointerDown);
+  window.addEventListener('pointermove', onPointerMove);
+  window.addEventListener('pointerup', onPointerUp);
+
+  /* 觸控板水平滾動 */
+  c.stageEl.addEventListener('wheel', (e)=>{
+    if(Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    c.stageEl.style.transition = 'none';
+    setRot(c, c.rot + (e.deltaX * 0.12));
+    c.vrot = e.deltaX * 0.02;
+  }, {passive:false});
+}
+enableDrag(document.getElementById('twWrap'),   carousels.tw);
+enableDrag(document.getElementById('tpWrap'),   carousels.temp);
+
+/* 詳情面板：顯示正面卡完整內容 */
+function renderDetail(container, c, labelKey, linesKey, tagKey, noteKey){
+  const i = activeIndex(c);
+  const d = c.data[i];
+  const title = d[labelKey];
+  const lines = d[linesKey];
+  const tag   = d[tagKey];
+  const note  = d[noteKey];
+  container.innerHTML = `
+    <h3>${title}</h3>
+    <div class="tag">${tag||""}</div>
+    <ul>${lines.map(li=>`<li>${li}</li>`).join('')}</ul>
+    ${note? `<div class="note">${note}</div>`:""}
+  `;
+}
+const twDetail = document.getElementById('twDetail');
+const tpDetail = document.getElementById('tpDetail');
+function updateDetails(){
+  renderDetail(twDetail, carousels.tw, 'year', 'points', 'tag', 'scopeNote');
+  renderDetail(tpDetail, carousels.temp, 'temp', 'items', (d)=> (d.type==='proj'?'預期影響｜':'觀測影響｜')+d.label, null);
+}
+function markActiveAndDetail(){
+  Object.values(carousels).forEach(markActive);
+  updateDetails();
+}
+markActiveAndDetail();
+
+/* 視窗改變時重算半徑 */
+function refreshRadius(c){
+  const viewport = c.stageEl.parentElement;
+  const r = calcRadius(viewport.clientWidth, c.n);
+  c.stageEl.style.setProperty('--radius', r + 'px');
+  markActive(c);
+}
+window.addEventListener('resize', ()=>{ Object.values(carousels).forEach(refreshRadius); });
+
+/* 3D / 列表切換 */
+function renderList(container, data, titleKey, tagGetter, linesKey, noteKey){
+  container.innerHTML = data.map(d=>`
+    <details>
+      <summary>${d[titleKey]} — <span class="small">${typeof tagGetter==='function'? tagGetter(d) : d[tagGetter] || ""}</span></summary>
+      <ul>${d[linesKey].map(li=>`<li>${li}</li>`).join('')}</ul>
+      ${noteKey && d[noteKey] ? `<div class="note">${d[noteKey]}</div>` : ""}
+    </details>
+  `).join('');
+}
+
+const tw3dBtn = document.getElementById('tw3dBtn');
+const twListBtn = document.getElementById('twListBtn');
+const tp3dBtn = document.getElementById('tp3dBtn');
+const tpListBtn = document.getElementById('tpListBtn');
+const twWrap = document.getElementById('twWrap');
+const twList = document.getElementById('twList');
+const tpWrap = document.getElementById('tpWrap');
+const tpList = document.getElementById('tpList');
+
+function setToggle(is3D, wrapEl, listEl, btn3d, btnList){
+  wrapEl.style.display = is3D ? 'block' : 'none';
+  listEl.classList.toggle('active', !is3D);
+  btn3d.setAttribute('aria-pressed', String(is3D));
+  btnList.setAttribute('aria-pressed', String(!is3D));
+}
+renderList(twList, TW_TIMELINE, 'year', 'tag', 'points', 'scopeNote');
+renderList(tpList, TEMP_TIMELINE, 'temp', (d)=> (d.type==='proj'?'預期影響｜':'觀測影響｜') + d.label, 'items', null);
+
+tw3dBtn.addEventListener('click', ()=> setToggle(true,  twWrap, twList, tw3dBtn, twListBtn));
+twListBtn.addEventListener('click',()=> setToggle(false, twWrap, twList, tw3dBtn, twListBtn));
+tp3dBtn.addEventListener('click', ()=> setToggle(true,  tpWrap, tpList, tp3dBtn, tpListBtn));
+tpListBtn.addEventListener('click',()=> setToggle(false, tpWrap, tpList, tp3dBtn, tpListBtn));
+
+/* 鍵盤左右鍵：同步兩條 */
+document.addEventListener('keydown', (e)=>{
+  if (e.key === 'ArrowLeft') { rotate('tw', -1); rotate('temp', -1); updateDetails(); }
+  if (e.key === 'ArrowRight'){ rotate('tw',  1); rotate('temp',  1); updateDetails(); }
+});
+
+/* 初始狀態：標記活躍與詳情 */
+Object.values(carousels).forEach(markActive);
+updateDetails();
+
+/* ====== 聯繫我們 ====== */
+function sendEmail(e){
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  const company = document.getElementById('company').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const msg = document.getElementById('message').value.trim();
+
+  const subject = encodeURIComponent(`【諮詢】綠色影響力｜${name}（${company||'未填公司'}）`);
+  const body = encodeURIComponent(
+`您好，我想諮詢以下需求：
+
+公司/單位：${company||'-'}
+聯絡人：${name}
+Email：${email}
+
+需求/問題：
+${msg}
+
+— 由網站自動產生`
+  );
+  window.location.href = `mailto:hello@greenimpact.example?subject=${subject}&body=${body}`;
+}
+function copyForm(){
+  const name = document.getElementById('name').value.trim();
+  const company = document.getElementById('company').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const msg = document.getElementById('message').value.trim();
+  const text =
+`公司/單位：${company||'-'}
+聯絡人：${name||'-'}
+Email：${email||'-'}
+需求/問題：
+${msg||'-'}`;
+  navigator.clipboard.writeText(text).then(()=>alert('已複製表單內容，可貼到任意通訊軟體'));
+}
+
+/* 啟動公告 & 年份 */
+document.getElementById('yearNow').textContent = new Date().getFullYear();
+renderNews(); startAuto();
+</script>
+</body>
+</html>
