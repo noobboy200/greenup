@@ -7,6 +7,9 @@
 <meta name="description" content="綠色影響力：專業教育訓練、整合性ESG解決方案、綠領人才培訓與媒合。" />
 <meta name="color-scheme" content="light dark" />
 <style>
+  /* 全域修正：避免 padding 造成溢出 */
+  *, *::before, *::after { box-sizing: border-box; }
+
   /* ===================== 新風格（溫潤紙感／森綠 × 琥珀） ===================== */
   :root{
     --bg:#faf7f0;        /* 背景：象牙白 */
@@ -37,10 +40,10 @@
   html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
     font:16px/1.65 ui-sans-serif,system-ui,-apple-system,"Noto Sans TC",Segoe UI,Roboto,"PingFang TC","Microsoft JhengHei",Arial,sans-serif;
     scroll-behavior:smooth}
-  section{scroll-margin-top:92px}
+  section{scroll-margin-top:72px}
   .container{max-width:var(--maxw);margin:0 auto;padding:0 22px}
 
-  /* ===================== 頂部主導覽（Header 美化 + 新增內容） ===================== */
+  /* ===================== 頂部主導覽（Header 美化） ===================== */
   .sitebar-wrap{position:sticky;top:0;z-index:80;backdrop-filter:saturate(130%) blur(8px);
     border-bottom:1px solid var(--line);background:color-mix(in oklab, var(--card) 70%, transparent);}
   .sitebar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px}
@@ -59,15 +62,6 @@
     .burger{display:flex}
     .nav.open{display:flex;position:absolute;top:58px;left:0;right:0;padding:10px 22px;gap:10px;flex-wrap:wrap;background:var(--card);border-bottom:1px solid var(--line)}
   }
-
-  /* ===================== 快速導覽（兩錨點） ===================== */
-  .quicknav-wrap{position:sticky;top:56px;z-index:50;border-bottom:1px solid var(--line);
-    background:color-mix(in oklab, var(--card) 60%, transparent);backdrop-filter:saturate(140%) blur(6px)}
-  .quicknav{display:flex;gap:12px;align-items:center;min-height:40px}
-  .quicknav a{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;
-    color:var(--text);text-decoration:none;background:var(--chip)}
-  .quicknav a.active{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff;border-color:transparent}
-  .quicknav .sep{opacity:.35}
 
   /* ===================== Hero：左文右圖輪播 ===================== */
   .hero{padding:80px 0 42px}
@@ -178,16 +172,23 @@
   .listview summary{cursor:pointer;font-weight:700}
   .listview ul{margin:8px 0 0 18px;padding:0;color:var(--muted)}
 
-  /* ===================== 聯繫我們（欄位外觀強化） ===================== */
-  .contact{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
-  .form{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+  /* ===================== 聯繫我們（欄位外觀強化 + 不溢出） ===================== */
+  .contact{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,0.9fr);
+    gap:18px;
+    align-items:start;
+  }
+  .contact > *{ min-width:0; }
+  .form{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow);overflow:hidden}
   .field{position:relative;margin:14px 0}
   .field label{display:block;margin:0 0 6px;font-weight:700;color:var(--muted)}
-  .input{width:100%;padding:14px 44px 14px 44px;border-radius:14px;border:1px solid var(--line);background:var(--chip);color:var(--text);transition:border-color .2s, box-shadow .2s}
+  .input{width:100%;padding:14px 44px;border-radius:14px;border:1px solid var(--line);background:var(--chip);color:var(--text);transition:border-color .2s, box-shadow .2s}
   .input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px color-mix(in oklab,var(--brand),transparent 82%)}
-  .field .ico{position:absolute;left:12px;top:36px;width:20px;height:20px;color:var(--muted);pointer-events:none}
-  .field .suffix{position:absolute;right:12px;top:36px;color:var(--muted);font-size:12px}
-  textarea.input{min-height:140px;resize:vertical;padding-top:14px}
+  .field .ico{position:absolute;left:12px;top:44px;width:20px;height:20px;color:var(--muted);pointer-events:none}
+  .field .suffix{position:absolute;right:12px;top:44px;color:var(--muted);font-size:12px}
+  .field.textarea .ico{ top:36px; }  /* textarea 位置微調 */
+  textarea.input{min-height:140px;resize:vertical}
   .hint{font-size:12px;color:var(--muted);margin-top:6px}
   .form-actions{display:flex;gap:10px;align-items:center;margin-top:10px}
   .aside{border:1px solid var(--line);border-radius:18px;padding:16px;background:var(--card)}
@@ -197,8 +198,10 @@
   @media (max-width:960px){
     .grid{grid-template-columns:1fr}
     .contact{grid-template-columns:1fr}
+    .hero{padding-top:56px}
+    h1{font-size:34px}
+    .timeline-2d .viewport{height:430px}
   }
-
   :focus-visible{outline:2px solid color-mix(in oklab,var(--brand),#fff 40%);outline-offset:2px;border-radius:10px}
 </style>
 </head>
@@ -222,15 +225,6 @@
   </div>
 </div>
 
-<!-- ===== 快速導覽（兩個錨點） ===== -->
-<div class="quicknav-wrap">
-  <div class="container quicknav" id="quickNav">
-    <a href="#tw-timeline" data-target="tw">永續進程</a>
-    <span class="sep">·</span>
-    <a href="#temp-timeline" data-target="tp">升溫影響</a>
-  </div>
-</div>
-
 <a id="top"></a>
 <header class="container hero">
   <div class="hero-grid">
@@ -247,10 +241,9 @@
       </div>
     </div>
 
-    <!-- 右側圖片展示（更換 data-src 即可） -->
+    <!-- 右側圖片展示 -->
     <aside class="gallery" aria-label="圖片展示">
       <div class="g-stage" id="gStage">
-        <!-- 以 data URI 放三張示意，可自行換成企業照片或作品集 -->
         <div class="g-slide active"><img alt="示意 1" src="data:image/svg+xml;charset=UTF-8,<?xml version='1.0'?><?DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'?><svg xmlns='http://www.w3.org/2000/svg' width='960' height='600'><defs><linearGradient id='g1' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%232e7d32'/><stop offset='100%' stop-color='%236baa75'/></linearGradient></defs><rect width='100%' height='100%' fill='%23f2efe7'/><rect x='40' y='40' width='880' height='520' rx='24' fill='url(%23g1)'/><text x='80' y='120' fill='white' font-family='Arial' font-size='48'>ESG 教育訓練</text></svg>" /></div>
         <div class="g-slide"><img alt="示意 2" src="data:image/svg+xml;charset=UTF-8,<?xml version='1.0'?><svg xmlns='http://www.w3.org/2000/svg' width='960' height='600'><rect width='100%' height='100%' fill='%23f2efe7'/><circle cx='480' cy='300' r='240' fill='%23d97706'/><text x='310' y='320' fill='white' font-family='Arial' font-size='48'>整合性 ESG 解決方案</text></svg>" /></div>
         <div class="g-slide"><img alt="示意 3" src="data:image/svg+xml;charset=UTF-8,<?xml version='1.0'?><svg xmlns='http://www.w3.org/2000/svg' width='960' height='600'><rect width='100%' height='100%' fill='%23f2efe7'/><rect x='120' y='120' width='720' height='360' rx='18' fill='%231f2937'/><text x='220' y='320' fill='%23a7f3d0' font-family='Arial' font-size='48'>綠領人才培訓與媒合</text></svg>" /></div>
@@ -366,7 +359,7 @@
   <section class="section" id="temp-timeline">
     <div class="timeline-header">
       <h2 style="margin:0">全球升溫進度與影響（多來源綜整示意）</h2>
-    <div class="view-toggle">
+      <div class="view-toggle">
         <button class="pill" id="tp2dBtn" aria-pressed="true">2D</button>
         <button class="pill" id="tpListBtn" aria-pressed="false">列表</button>
       </div>
@@ -391,7 +384,7 @@
     <p class="small" style="margin-top:10px">說明：以下內容為教育示意，請依官方來源與最新研究校對。</p>
   </section>
 
-  <!-- 聯繫我們（欄位外觀已優化） -->
+  <!-- 聯繫我們（欄位外觀已優化，不會蓋到旁邊） -->
   <section class="section" id="contact">
     <h2>聯繫我們</h2>
     <p class="sub">歡迎提供需求，我們將於 2 個工作日內回覆。</p>
@@ -416,7 +409,7 @@
           <span class="suffix">@</span>
         </div>
 
-        <div class="field">
+        <div class="field textarea">
           <label for="message">您的需求或問題</label>
           <svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h16v12H7l-3 4z" stroke="currentColor" stroke-width="2"/></svg>
           <textarea id="message" name="message" class="input" placeholder="想諮詢教育內訓與 SBTi 目標設定..." required></textarea>
@@ -455,22 +448,6 @@
 const navToggle=document.getElementById('navToggle');
 const mainNav=document.getElementById('mainNav');
 navToggle?.addEventListener('click',()=> mainNav.classList.toggle('open'));
-
-/* ====== 快速導覽：捲動高亮 ====== */
-const quickNav=document.getElementById('quickNav');
-const qLinks=[...quickNav.querySelectorAll('a')];
-const sections=[{id:'tw-timeline', link:qLinks[0]}, {id:'temp-timeline', link:qLinks[1]}];
-const io=new IntersectionObserver((entries)=>{
-  entries.forEach(en=>{
-    const sec=sections.find(s=>s.id===en.target.id);
-    if(!sec) return;
-    if(en.isIntersecting) {
-      qLinks.forEach(a=>a.classList.remove('active'));
-      sec.link.classList.add('active');
-    }
-  })
-},{rootMargin:'-40% 0px -55% 0px', threshold:[0, .2, .6, 1]});
-sections.forEach(s=>io.observe(document.getElementById(s.id)));
 
 /* ===================== 右側圖片展示（淡入淡出無縫輪播） ===================== */
 const gStage=document.getElementById('gStage');
@@ -766,7 +743,7 @@ function copyForm(){
   navigator.clipboard.writeText(text).then(()=>alert('已複製表單內容，可貼到任意通訊軟體'));
 }
 
-/* ===================== 啟動 ===================== */
+/* ===================== 年份 ===================== */
 document.getElementById('yearNow').textContent=new Date().getFullYear();
 renderNews(); startAutoNews();
 </script>
