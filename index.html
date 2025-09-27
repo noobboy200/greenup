@@ -58,28 +58,32 @@
     .nav.open{display:flex;position:absolute;top:64px;left:0;right:0;padding:10px 22px;gap:10px;flex-wrap:wrap;background:var(--card);border-bottom:1px solid var(--line)}
   }
 
-  /* ===== Hero：左文右圖輪播 ===== */
-  .hero{padding:80px 0 42px}
-  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center}
-  .badge{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border:1px solid var(--line);
-    border-radius:999px;font-size:12px;color:var(--muted);background:var(--chip)}
-  h1{font-size:42px;line-height:1.18;margin:16px 0 12px}
-  .lead{max-width:720px;color:var(--muted);font-size:18px}
-  .cta-row{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
-  .btn{appearance:none;border:none;border-radius:999px;padding:12px 18px;font-weight:800;cursor:pointer;box-shadow:var(--shadow)}
-  .btn-primary{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff}
-  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+  /* ===== Hero：左文右圖輪播（已修正任何比例都能契合） ===== */
+.hero{padding:80px 0 42px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center}
+.badge{display:inline-flex;gap:8px;align-items:center;padding:6px 12px;border:1px solid var(--line);
+  border-radius:999px;font-size:12px;color:var(--muted);background:var(--chip)}
+h1{font-size:42px;line-height:1.18;margin:16px 0 12px}
+.lead{max-width:720px;color:var(--muted);font-size:18px}
+.cta-row{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{appearance:none;border:none;border-radius:999px;padding:12px 18px;font-weight:800;cursor:pointer;box-shadow:var(--shadow)}
+.btn-primary{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff}
+.btn-ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
 
-  .gallery{position:relative;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:var(--shadow);overflow:hidden}
-  .g-stage{position:relative;height:300px}
-  .g-slide{position:absolute;inset:0;opacity:0;transition:opacity 700ms ease;display:grid;place-items:center}
-  .g-slide.active{opacity:1}
-  .g-dots{display:flex;gap:8px;justify-content:center;padding:10px;border-top:1px solid var(--line);background:var(--chip)}
-  .g-dot{width:10px;height:10px;border-radius:999px;border:1px solid var(--line);background:transparent;cursor:pointer}
-  .g-dot.active{background:var(--brand);border-color:var(--brand)}
-  .g-arrows{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 8px;pointer-events:none}
-  .g-arrows button{pointer-events:auto;border:1px solid var(--line);background:color-mix(in oklab,var(--card),transparent 10%);border-radius:12px;padding:6px 8px;cursor:pointer}
-  @media (max-width:960px){ .hero{padding-top:64px} .hero-grid{grid-template-columns:1fr} h1{font-size:34px} .g-stage{height:240px} }
+.gallery{position:relative;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:var(--shadow);overflow:hidden}
+.g-stage{position:relative;/* 用比例鎖住舞台，任何圖片都會剛好填滿 */aspect-ratio:16/9;height:auto;min-height:260px;}
+@supports not (aspect-ratio: 1){/* 老舊瀏覽器 fallback */.g-stage{height:300px}}
+.g-slide{position:absolute;inset:0;opacity:0;transition:opacity 700ms ease;display:grid;place-items:center;}
+.g-slide.active{opacity:1}
+
+/* 關鍵：一定要給寬與高，object-fit 才會 100% 生效 */
+.g-slide img{width:100%;height:100%;object-fit:cover;       /* 等比填滿並裁切多餘 */object-position:center; /* 置中 */display:block;          /* 移除 baseline 縫隙 */border-radius:0;        /* 由容器裁角 */}
+.g-dots{display:flex;gap:8px;justify-content:center;padding:10px;border-top:1px solid var(--line);background:var(--chip)}
+.g-dot{width:10px;height:10px;border-radius:999px;border:1px solid var(--line);background:transparent;cursor:pointer}
+.g-dot.active{background:var(--brand);border-color:var(--brand)}
+.g-arrows{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 8px;pointer-events:none}
+.g-arrows button{pointer-events:auto;border:1px solid var(--line);background:color-mix(in oklab,var(--card),transparent 10%);border-radius:12px;padding:6px 8px;cursor:pointer}
+@media (max-width:960px){.hero{padding-top:64px}.hero-grid{grid-template-columns:1fr}h1{font-size:34px}/* 行動裝置自動靠比例縮放，不需另設高度 */}
 
   .section{margin:56px 0}
   .section h2{font-size:28px;margin:0 0 8px}
